@@ -426,12 +426,12 @@ function setSync(status,msg){
   if(txt)txt.textContent=msg;
 }
 
-async function loadTasks(){
+async async function loadTasks(){
   setSync('syncing','Loading tasks from Google Sheets…');
   try{
     const r=await fetch(API+'?action=getTasks');
     const d=await r.json();
-    if(d.tasks&&d.tasks.length){
+    console.log('Tasks loaded from Sheets:', d.tasks?.length, 'first ID:', d.tasks?.[0]?.id); if(d.tasks&&d.tasks.length){
       S.tasks=d.tasks;
       S.tasksLoaded=true;
       document.getElementById('start-btn').disabled=false;
@@ -673,29 +673,39 @@ function filterManage(zone,el){
 }
 
 function openEditTask(id){
-  // Normalize ID to number for comparison
   const taskId = parseInt(id);
-  const task=S.tasks.find(t=>parseInt(t.id)===taskId);
-  if(!task){ alert('Task not found: '+id); return; }
-  S.editingTaskId=taskId;
+  // Try finding by int ID first, then string
+  let task = S.tasks.find(t=>parseInt(t.id)===taskId);
+  if(!task){
+    showToast('⚠ Tasks not loaded yet — please wait and try again', true);
+    return;
+  }
+  S.editingTaskId = taskId;
+  // Populate all fields before opening modal
+  const ta = document.getElementById('et-desc');
+  ta.value = task.description.trim();
+  // Set selects by value
+  ['et-cat','et-freq'].forEach(sid=>{
+    const sel = document.getElementById(sid);
+    const val = sid==='et-cat' ? task.category : task.frequency;
+    for(let i=0;i<sel.options.length;i++){
+      if(sel.options[i].value===val||sel.options[i].text===val){sel.selectedIndex=i;break;}
+    }
+  });
+  document.getElementById('et-min').value = task.minTime;
+  document.getElementById('et-max').value = task.maxTime;
+  // Set tier
+  const tierSel = document.getElementById('et-tier');
+  const tierVal = String(task.tier);
+  for(let i=0;i<tierSel.options.length;i++){
+    if(tierSel.options[i].value===tierVal){tierSel.selectedIndex=i;break;}
+  }
+  // Now open modal
   document.getElementById('modal-edit').classList.add('on');
   setTimeout(()=>{
-    const ta=document.getElementById('et-desc');
-    ta.value=task.description.trim();
     ta.style.height='auto';
     ta.style.height=Math.max(80,ta.scrollHeight)+'px';
-    // Set category
-    const catSel=document.getElementById('et-cat');
-    for(let i=0;i<catSel.options.length;i++){if(catSel.options[i].value===task.category)catSel.selectedIndex=i;}
-    // Set frequency
-    const freqSel=document.getElementById('et-freq');
-    for(let i=0;i<freqSel.options.length;i++){if(freqSel.options[i].value===task.frequency)freqSel.selectedIndex=i;}
-    document.getElementById('et-min').value=task.minTime;
-    document.getElementById('et-max').value=task.maxTime;
-    // Set tier
-    const tierSel=document.getElementById('et-tier');
-    for(let i=0;i<tierSel.options.length;i++){if(parseInt(tierSel.options[i].value)===parseInt(task.tier))tierSel.selectedIndex=i;}
-  },100);
+  },50);
 }
 
 async function saveEditTask(){
@@ -733,7 +743,7 @@ async function saveEditTask(){
       renderManage();
     } else {
       btn.textContent='Save to Sheets';btn.disabled=false;
-      showToast('⚠ Save failed: '+(result.error||'unknown error'), true);
+      showToast('⚠ Save failed: '+(result.error||'Check Apps Script deployment'), true); console.error('Save error:', result);
     }
   } catch(e) {
     btn.textContent='Save to Sheets';btn.disabled=false;
