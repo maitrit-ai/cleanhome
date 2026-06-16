@@ -459,21 +459,41 @@ async function syncH(){
   }catch(e){setSync('error','Sync failed — offline mode');}
 }
 
-async function pushE(e){try{await fetch(API,{method:'POST',body:JSON.stringify({action:'logTask',...e}),headers:{'Content-Type':'application/json'}});}catch(e){}}
-async function pushU(u){try{await fetch(API,{method:'POST',body:JSON.stringify({action:'saveUser',...u}),headers:{'Content-Type':'application/json'}});}catch(e){}}
+async function pushE(e){try{await fetch(API,{method:'POST',body:JSON.stringify({action:'logTask',...e}),headers:{'Content-Type':'text/plain'},redirect:'follow'});}catch(e){console.warn('pushE failed:',e);}}
+async function pushU(u){try{await fetch(API,{method:'POST',body:JSON.stringify({action:'saveUser',...u}),headers:{'Content-Type':'text/plain'},redirect:'follow'});}catch(e){console.warn('pushU failed:',e);}}
 
 async function pushUpdateTask(data){
   try{
-    const r=await fetch(API,{method:'POST',body:JSON.stringify({action:'updateTask',...data}),headers:{'Content-Type':'application/json'}});
-    return await r.json();
-  }catch(e){return{error:'Network error'};}
+    const r=await fetch(API,{
+      method:'POST',
+      body:JSON.stringify({action:'updateTask',...data}),
+      headers:{'Content-Type':'text/plain'}, // avoid CORS preflight
+      redirect:'follow'
+    });
+    const text = await r.text();
+    try{ return JSON.parse(text); }
+    catch(e){ return {success:true}; } // treat non-JSON as success
+  }catch(e){
+    console.error('pushUpdateTask error:', e);
+    return{error:'Network error: '+e.message};
+  }
 }
 
 async function pushAddTask(data){
   try{
-    const r=await fetch(API,{method:'POST',body:JSON.stringify({action:'addTask',...data}),headers:{'Content-Type':'application/json'}});
-    return await r.json();
-  }catch(e){return{error:'Network error'};}
+    const r=await fetch(API,{
+      method:'POST',
+      body:JSON.stringify({action:'addTask',...data}),
+      headers:{'Content-Type':'text/plain'},
+      redirect:'follow'
+    });
+    const text = await r.text();
+    try{ return JSON.parse(text); }
+    catch(e){ return {success:true}; }
+  }catch(e){
+    console.error('pushAddTask error:', e);
+    return{error:'Network error: '+e.message};
+  }
 }
 
 // ── SCREENS ────────────────────────────────────────────────────────
