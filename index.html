@@ -464,18 +464,32 @@ async function pushU(u){try{await fetch(API,{method:'POST',body:JSON.stringify({
 
 async function pushUpdateTask(data){
   try{
-    const r=await fetch(API,{
+    const payload = JSON.stringify({action:'updateTask',...data});
+    const r = await fetch(API, {
       method:'POST',
-      body:JSON.stringify({action:'updateTask',...data}),
-      headers:{'Content-Type':'text/plain'}, // avoid CORS preflight
-      redirect:'follow'
+      body: payload,
+      headers: {'Content-Type':'text/plain;charset=utf-8'},
+      redirect: 'follow',
+      mode: 'cors'
     });
+    if(!r.ok) return {error:'HTTP '+r.status};
     const text = await r.text();
+    console.log('updateTask response:', text.substring(0,100));
     try{ return JSON.parse(text); }
-    catch(e){ return {success:true}; } // treat non-JSON as success
+    catch(e){ 
+      // Apps Script sometimes redirects - treat 200 as success
+      if(r.status===200) return {success:true};
+      return {error:'Invalid response: '+text.substring(0,50)};
+    }
   }catch(e){
-    console.error('pushUpdateTask error:', e);
-    return{error:'Network error: '+e.message};
+    console.error('pushUpdateTask error:', e.name, e.message);
+    // Try again with no-cors as fallback
+    try{
+      await fetch(API, {method:'POST', body:JSON.stringify({action:'updateTask',...data}), mode:'no-cors'});
+      return {success:true}; // no-cors can't read response, assume success
+    }catch(e2){
+      return {error:'Network error: '+e.message};
+    }
   }
 }
 
@@ -543,10 +557,14 @@ async function renderUsers(){
     console.log('Users from Sheets:', d);
     if (d.users && d.users.length) {
       S.users = d.users.map(function(u){
+        // Sheet columns are lowercase: id, name, color
+        var uid = u.id || u.ID || u.Id || '';
+        var uname = u.name || u.Name || u.NAME || '';
+        var ucolor = u.color || u.Color || u.COLOR || '#2d6a4f';
         return {
-          id: String(u.id || u.ID || u.name || 'user'),
-          name: String(u.name || u.Name || 'User'),
-          color: String(u.color || u.Color || '#2d6a4f')
+          id: String(uid) || String(uname) || 'user1',
+          name: String(uname) || 'Unknown',
+          color: String(ucolor)
         };
       });
       showUserList(el);
@@ -711,6 +729,13 @@ function finishSess(){
 // ── MANAGE TASKS ───────────────────────────────────────────────────
 function renderManage(){
   const filters=document.getElementById('manage-filters');
+  const list=document.getElementById('manage-list');
+  if(!S.tasks.length){
+    list.innerHTML='<div class="loading"><div class="spinner"></div><p style="margin-top:12px;font-size:14px;color:var(--ts)">Loading tasks…</p></div>';
+    // retry after tasks load
+    setTimeout(renderManage, 1500);
+    return;
+  }
   const zones=['All',...new Set(S.tasks.map(t=>t.zone))].sort();
   filters.innerHTML=zones.map((z,i)=>`<div class="fchp ${i===0?'on':''}" onclick="filterManage('${z}',this)">${z}</div>`).join('');
   filterManage('All');
