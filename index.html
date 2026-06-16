@@ -488,16 +488,33 @@ function go(id){
 }
 
 // ── USERS ──────────────────────────────────────────────────────────
+// Default users - always shown even if Sheets fails
+const DEFAULT_USERS = [
+  {id:'maitri', name:'Maitri', color:'#2d6a4f'}
+];
+
 async function renderUsers(){
   const el=document.getElementById('user-list');
-  el.innerHTML='<div class="loading"><div class="spinner"></div><p style="margin-top:12px;font-size:14px">Loading users…</p></div>';
+  // Show defaults immediately so screen is never blank
+  if(!S.users.length) S.users = [...DEFAULT_USERS];
+  showUserList(el);
+  // Then try to load from Sheets and update
   try{
     const r=await fetch(API+'?action=getUsers');
     const d=await r.json();
+    console.log('getUsers response:', JSON.stringify(d));
     if(d.users&&d.users.length){
-      S.users=d.users.map(u=>({id:String(u.id||u.ID||u.name),name:String(u.name||u.Name),color:String(u.color||u.Color||'#2d6a4f')}));
+      S.users=d.users.map(u=>({
+        id:String(u.id||u.ID||u.name||'user'),
+        name:String(u.name||u.Name||'User'),
+        color:String(u.color||u.Color||'#2d6a4f')
+      }));
+      showUserList(el);
     }
-  }catch(e){ console.warn('Could not load users from sheets, using local'); }
+  }catch(e){ console.warn('Could not load users from sheets:', e); }
+}
+
+function showUserList(el){
   if(!S.users.length){
     el.innerHTML='<div class="empty"><div class="ico">👤</div><p>No users found — add yourself below</p></div>';
     return;
