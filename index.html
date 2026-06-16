@@ -361,14 +361,14 @@ select.fi{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='
     <div style="font-size:16px;font-weight:700;margin-bottom:16px">Edit Task</div>
     <div class="fg"><label class="fl">Description</label><textarea class="fi" id="et-desc" rows="3"></textarea></div>
     <div class="fg"><label class="fl">Category</label>
-      <select class="fi" id="et-cat"><option>Dusting</option>
-<option>Vacuuming</option>
-<option>Mopping</option>
-<option>Wiping</option>
-<option>Scrubbing</option>
-<option>Arranging</option>
-<option>Deep Clean</option>
-<option>Polishing</option></select>
+      <select class="fi" id="et-cat"><option value="Dusting">Dusting</option>
+<option value="Vacuuming">Vacuuming</option>
+<option value="Mopping">Mopping</option>
+<option value="Wiping">Wiping</option>
+<option value="Scrubbing">Scrubbing</option>
+<option value="Arranging">Arranging</option>
+<option value="Deep Clean">Deep Clean</option>
+<option value="Polishing">Polishing</option></select>
     </div>
     <div class="frow2">
       <div class="fg"><label class="fl">Min Time</label><input class="fi" type="number" id="et-min" min="1" max="300"></div>
@@ -480,7 +480,7 @@ async function pushAddTask(data){
 function go(id){
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
   document.getElementById(id).classList.add('on');
-  if(id==='s-welcome')renderUsers();
+  if(id==='s-welcome'){renderUsers();}
   if(id==='s-home'){renderHome();syncH();}
   if(id==='s-history')renderHistory();
   if(id==='s-insights')renderInsights();
@@ -488,9 +488,20 @@ function go(id){
 }
 
 // ── USERS ──────────────────────────────────────────────────────────
-function renderUsers(){
+async function renderUsers(){
   const el=document.getElementById('user-list');
-  if(!S.users.length){el.innerHTML='<div class="empty"><div class="ico">👤</div><p>Add yourself to get started</p></div>';return;}
+  el.innerHTML='<div class="loading"><div class="spinner"></div><p style="margin-top:12px;font-size:14px">Loading users…</p></div>';
+  try{
+    const r=await fetch(API+'?action=getUsers');
+    const d=await r.json();
+    if(d.users&&d.users.length){
+      S.users=d.users.map(u=>({id:String(u.id||u.ID||u.name),name:String(u.name||u.Name),color:String(u.color||u.Color||'#2d6a4f')}));
+    }
+  }catch(e){ console.warn('Could not load users from sheets, using local'); }
+  if(!S.users.length){
+    el.innerHTML='<div class="empty"><div class="ico">👤</div><p>No users found — add yourself below</p></div>';
+    return;
+  }
   el.innerHTML=S.users.map(u=>`<button class="ubtn" onclick="pickU('${u.id}')"><div class="uav" style="background:${u.color}">${u.name[0].toUpperCase()}</div><div><div class="unm">${u.name}</div><div class="urol">${lastStr(u.id)}</div></div></button>`).join('');
 }
 function lastStr(uid){const e=S.history.filter(h=>h.userId===uid).sort((a,b)=>b.timestamp-a.timestamp)[0];if(!e)return'Never cleaned yet';const d=Math.floor((Date.now()-e.timestamp)/86400000);return d===0?'Cleaned today':d===1?'Cleaned yesterday':`Cleaned ${d} days ago`;}
@@ -674,38 +685,19 @@ function filterManage(zone,el){
 
 function openEditTask(id){
   const taskId = parseInt(id);
-  // Try finding by int ID first, then string
   let task = S.tasks.find(t=>parseInt(t.id)===taskId);
   if(!task){
-    showToast('⚠ Tasks not loaded yet — please wait and try again', true);
+    showToast('⚠ Tasks not loaded yet — please wait', true);
     return;
   }
   S.editingTaskId = taskId;
-  // Populate all fields before opening modal
-  const ta = document.getElementById('et-desc');
-  ta.value = task.description.trim();
-  // Set selects by value
-  ['et-cat','et-freq'].forEach(sid=>{
-    const sel = document.getElementById(sid);
-    const val = sid==='et-cat' ? task.category : task.frequency;
-    for(let i=0;i<sel.options.length;i++){
-      if(sel.options[i].value===val||sel.options[i].text===val){sel.selectedIndex=i;break;}
-    }
-  });
+  document.getElementById('et-desc').value = task.description.trim();
+  document.getElementById('et-cat').value = task.category;
+  document.getElementById('et-freq').value = task.frequency;
   document.getElementById('et-min').value = task.minTime;
   document.getElementById('et-max').value = task.maxTime;
-  // Set tier
-  const tierSel = document.getElementById('et-tier');
-  const tierVal = String(task.tier);
-  for(let i=0;i<tierSel.options.length;i++){
-    if(tierSel.options[i].value===tierVal){tierSel.selectedIndex=i;break;}
-  }
-  // Now open modal
+  document.getElementById('et-tier').value = String(task.tier);
   document.getElementById('modal-edit').classList.add('on');
-  setTimeout(()=>{
-    ta.style.height='auto';
-    ta.style.height=Math.max(80,ta.scrollHeight)+'px';
-  },50);
 }
 
 async function saveEditTask(){
@@ -955,8 +947,9 @@ function showToast(msg, isError=false){
 
 // ── INIT ───────────────────────────────────────────────────────────
 loadL();
+// Load users from Sheets on startup
 renderUsers();
-// Load tasks on startup if user already logged in
+// Load tasks if user already picked
 if(S.currentUser){ loadTasks(); syncH(); }
 </script>
 
