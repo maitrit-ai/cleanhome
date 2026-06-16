@@ -493,33 +493,47 @@ const DEFAULT_USERS = [
   {id:'maitri', name:'Maitri', color:'#2d6a4f'}
 ];
 
-async function renderUsers(){
-  const el=document.getElementById('user-list');
-  // Show defaults immediately so screen is never blank
-  if(!S.users.length) S.users = [...DEFAULT_USERS];
-  showUserList(el);
-  // Then try to load from Sheets and update
-  try{
-    const r=await fetch(API+'?action=getUsers');
-    const d=await r.json();
-    console.log('getUsers response:', JSON.stringify(d));
-    if(d.users&&d.users.length){
-      S.users=d.users.map(u=>({
-        id:String(u.id||u.ID||u.name||'user'),
-        name:String(u.name||u.Name||'User'),
-        color:String(u.color||u.Color||'#2d6a4f')
-      }));
-      showUserList(el);
-    }
-  }catch(e){ console.warn('Could not load users from sheets:', e); }
+function buildUserBtn(u) {
+  var btn = document.createElement('button');
+  btn.className = 'ubtn';
+  btn.onclick = function(){ pickU(u.id); };
+  btn.innerHTML = '<div class="uav" style="background:'+u.color+'">'+u.name[0].toUpperCase()+'</div>'
+    + '<div><div class="unm">'+u.name+'</div><div class="urol">'+lastStr(u.id)+'</div></div>';
+  return btn;
 }
 
-function showUserList(el){
-  if(!S.users.length){
-    el.innerHTML='<div class="empty"><div class="ico">👤</div><p>No users found — add yourself below</p></div>';
+function showUserList(el) {
+  el.innerHTML = '';
+  if (!S.users.length) {
+    el.innerHTML = '<div class="empty"><div class="ico">👤</div><p>No users found — add yourself below</p></div>';
     return;
   }
-  el.innerHTML=S.users.map(u=>`<button class="ubtn" onclick="pickU('${u.id}')"><div class="uav" style="background:${u.color}">${u.name[0].toUpperCase()}</div><div><div class="unm">${u.name}</div><div class="urol">${lastStr(u.id)}</div></div></button>`).join('');
+  S.users.forEach(function(u) { el.appendChild(buildUserBtn(u)); });
+}
+
+async function renderUsers(){
+  var el = document.getElementById('user-list');
+  // Always show Maitri immediately - never blank
+  if (!S.users.length) S.users = DEFAULT_USERS.map(function(u){ return Object.assign({},u); });
+  showUserList(el);
+  // Then try loading from Sheets
+  try {
+    var r = await fetch(API + '?action=getUsers');
+    var d = await r.json();
+    console.log('Users from Sheets:', d);
+    if (d.users && d.users.length) {
+      S.users = d.users.map(function(u){
+        return {
+          id: String(u.id || u.ID || u.name || 'user'),
+          name: String(u.name || u.Name || 'User'),
+          color: String(u.color || u.Color || '#2d6a4f')
+        };
+      });
+      showUserList(el);
+    }
+  } catch(e) {
+    console.warn('Could not load users:', e);
+  }
 }
 function lastStr(uid){const e=S.history.filter(h=>h.userId===uid).sort((a,b)=>b.timestamp-a.timestamp)[0];if(!e)return'Never cleaned yet';const d=Math.floor((Date.now()-e.timestamp)/86400000);return d===0?'Cleaned today':d===1?'Cleaned yesterday':`Cleaned ${d} days ago`;}
 function pickU(uid){S.currentUser=S.users.find(u=>u.id===uid);save();go('s-home');loadTasks();syncH();}
