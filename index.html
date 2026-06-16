@@ -668,34 +668,38 @@ function filterManage(zone,el){
           <span class="tag zone">${t.frequency}</span>
         </div>
       </div>
-      <button class="tedit" onclick="openEditTask(${t.id})">✏️</button>
+      <button class="tedit" onclick="openEditTask(parseInt('${t.id}'))">✏️</button>
     </div>`).join('');
 }
 
 function openEditTask(id){
-  const task=S.tasks.find(t=>t.id===id);
-  if(!task)return;
-  S.editingTaskId=id;
-  // Use setTimeout to ensure modal is visible before setting values
+  // Normalize ID to number for comparison
+  const taskId = parseInt(id);
+  const task=S.tasks.find(t=>parseInt(t.id)===taskId);
+  if(!task){ alert('Task not found: '+id); return; }
+  S.editingTaskId=taskId;
   document.getElementById('modal-edit').classList.add('on');
   setTimeout(()=>{
     const ta=document.getElementById('et-desc');
-    ta.value='';
     ta.value=task.description.trim();
     ta.style.height='auto';
-    ta.style.height=ta.scrollHeight+'px';
-    document.getElementById('et-cat').value=task.category;
+    ta.style.height=Math.max(80,ta.scrollHeight)+'px';
+    // Set category
+    const catSel=document.getElementById('et-cat');
+    for(let i=0;i<catSel.options.length;i++){if(catSel.options[i].value===task.category)catSel.selectedIndex=i;}
+    // Set frequency
+    const freqSel=document.getElementById('et-freq');
+    for(let i=0;i<freqSel.options.length;i++){if(freqSel.options[i].value===task.frequency)freqSel.selectedIndex=i;}
     document.getElementById('et-min').value=task.minTime;
     document.getElementById('et-max').value=task.maxTime;
-    document.getElementById('et-freq').value=task.frequency;
-    document.getElementById('et-tier').value=String(task.tier);
-    ta.focus();
-    ta.blur();
-  },50);
+    // Set tier
+    const tierSel=document.getElementById('et-tier');
+    for(let i=0;i<tierSel.options.length;i++){if(parseInt(tierSel.options[i].value)===parseInt(task.tier))tierSel.selectedIndex=i;}
+  },100);
 }
 
 async function saveEditTask(){
-  const id=S.editingTaskId;if(!id)return;
+  const id=parseInt(S.editingTaskId);if(!id)return;
   const btn=document.getElementById('et-save-btn');
   btn.textContent='Saving…';btn.disabled=true;
   const data={
