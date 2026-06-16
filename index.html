@@ -710,18 +710,26 @@ function filterManage(zone,el){
           <span class="tag zone">${t.frequency}</span>
         </div>
       </div>
-      <button class="tedit" onclick="openEditTask(parseInt('${t.id}'))">✏️</button>
+      <button class="tedit" onclick="openEditTask('${t.id}')">✏️</button>
     </div>`).join('');
 }
 
 function openEditTask(id){
-  const taskId = parseInt(id);
-  let task = S.tasks.find(t=>parseInt(t.id)===taskId);
+  var sid = String(id).trim();
+  var nid = parseInt(id);
+  var task = null;
+  for(var i=0;i<S.tasks.length;i++){
+    if(String(S.tasks[i].id).trim()===sid || parseInt(S.tasks[i].id)===nid){
+      task=S.tasks[i]; break;
+    }
+  }
   if(!task){
-    showToast('⚠ Tasks not loaded yet — please wait', true);
+    console.error('Task not found id='+id+' tasks='+S.tasks.length+' firstId='+(S.tasks[0]?S.tasks[0].id:'none'));
+    showToast('Task not found: '+id, true);
     return;
   }
-  S.editingTaskId = taskId;
+  console.log('Editing:',task.id, task.description.substring(0,30));
+  S.editingTaskId = task.id;
   document.getElementById('et-desc').value = task.description.trim();
   document.getElementById('et-cat').value = task.category;
   document.getElementById('et-freq').value = task.frequency;
