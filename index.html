@@ -676,13 +676,22 @@ function openEditTask(id){
   const task=S.tasks.find(t=>t.id===id);
   if(!task)return;
   S.editingTaskId=id;
-  document.getElementById('et-desc').value=task.description;
-  document.getElementById('et-cat').value=task.category;
-  document.getElementById('et-min').value=task.minTime;
-  document.getElementById('et-max').value=task.maxTime;
-  document.getElementById('et-freq').value=task.frequency;
-  document.getElementById('et-tier').value=task.tier;
+  // Use setTimeout to ensure modal is visible before setting values
   document.getElementById('modal-edit').classList.add('on');
+  setTimeout(()=>{
+    const ta=document.getElementById('et-desc');
+    ta.value='';
+    ta.value=task.description.trim();
+    ta.style.height='auto';
+    ta.style.height=ta.scrollHeight+'px';
+    document.getElementById('et-cat').value=task.category;
+    document.getElementById('et-min').value=task.minTime;
+    document.getElementById('et-max').value=task.maxTime;
+    document.getElementById('et-freq').value=task.frequency;
+    document.getElementById('et-tier').value=String(task.tier);
+    ta.focus();
+    ta.blur();
+  },50);
 }
 
 async function saveEditTask(){
@@ -715,6 +724,8 @@ async function saveEditTask(){
       btn.textContent='Save to Sheets';btn.disabled=false;
       // Show success toast
       showToast('✓ Task updated in Google Sheets');
+      // Reload tasks fresh from Sheets
+      await loadTasks();
       renderManage();
     } else {
       btn.textContent='Save to Sheets';btn.disabled=false;
