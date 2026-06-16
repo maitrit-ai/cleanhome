@@ -121,6 +121,11 @@ select.fi{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='
 .sumnum{font-size:26px;font-weight:800;color:var(--g)}.sumlbl{font-size:11px;color:var(--ts);margin-top:3px}
 .empty{text-align:center;padding:52px 20px;color:var(--ts)}.empty .ico{font-size:52px;margin-bottom:12px}
 .hint{background:#fff;border-radius:var(--r);padding:14px;margin-bottom:14px;box-shadow:var(--sh);font-size:13px;color:var(--ts);line-height:1.6;border-left:4px solid var(--g)}
+
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+.toast.error{background:var(--or)}
+
 .hint strong{color:var(--tx);display:block;margin-bottom:4px}
 .spinner{display:inline-block;width:20px;height:20px;border:3px solid var(--gm);border-top-color:var(--g);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -693,15 +698,32 @@ async function saveEditTask(){
     frequency:document.getElementById('et-freq').value,
     tier:parseInt(document.getElementById('et-tier').value),
   };
-  // Update local
-  const task=S.tasks.find(t=>t.id===id);
-  if(task){Object.assign(task,data);}
-  closeModal('modal-edit');
-  // Push to sheets
-  const result=await pushUpdateTask(data);
-  btn.textContent='Save to Sheets';btn.disabled=false;
-  if(result.success){renderManage();}
-  else alert('Saved locally but sheet update failed: '+(result.error||'unknown error'));
+  try {
+    const result = await pushUpdateTask(data);
+    if(result.success){
+      // Update local task in memory
+      const task=S.tasks.find(t=>t.id===id);
+      if(task){
+        task.description=data.description;
+        task.category=data.category;
+        task.minTime=data.minTime;
+        task.maxTime=data.maxTime;
+        task.frequency=data.frequency;
+        task.tier=data.tier;
+      }
+      closeModal('modal-edit');
+      btn.textContent='Save to Sheets';btn.disabled=false;
+      // Show success toast
+      showToast('✓ Task updated in Google Sheets');
+      renderManage();
+    } else {
+      btn.textContent='Save to Sheets';btn.disabled=false;
+      showToast('⚠ Save failed: '+(result.error||'unknown error'), true);
+    }
+  } catch(e) {
+    btn.textContent='Save to Sheets';btn.disabled=false;
+    showToast('⚠ Network error — not saved', true);
+  }
 }
 
 async function saveNewTask(){
@@ -897,6 +919,15 @@ function confirmSwap() {
   renderSess();
 }
 
+
+function showToast(msg, isError=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast'+(isError?' error':'');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
 // ── INIT ───────────────────────────────────────────────────────────
 loadL();
 renderUsers();
@@ -939,5 +970,6 @@ if(S.currentUser){ loadTasks(); syncH(); }
   </div>
 </div>
 
+<div class="toast" id="toast"></div>
 </body>
 </html>
