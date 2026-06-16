@@ -426,7 +426,7 @@ function setSync(status,msg){
   if(txt)txt.textContent=msg;
 }
 
-async async function loadTasks(){
+async function loadTasks(){
   setSync('syncing','Loading tasks from Google Sheets…');
   try{
     const r=await fetch(API+'?action=getTasks');
