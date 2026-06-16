@@ -38,7 +38,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .bbtn:active{transform:scale(.98)}.bbtn.sec{background:#fff;color:var(--g);border:2px solid var(--g);box-shadow:none}.bbtn:disabled{opacity:.45;pointer-events:none}
 .topts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
 .topt{background:#fff;border:2px solid var(--grm);border-radius:10px;padding:14px 6px;font-size:15px;font-weight:600;cursor:pointer;text-align:center;transition:all .15s}
-.topt.on,.topt:active{border-color:var(--g);background:var(--gp);color:var(--g)}
+.topt.on{border-color:var(--g);background:var(--gp);color:var(--g)}
 .custm{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--grm);border-radius:10px;padding:12px 14px}
 .custm input{flex:1;border:none;outline:none;font-size:16px;background:transparent;min-width:0}
 .fopts{display:flex;gap:8px;margin-bottom:6px}
@@ -70,38 +70,49 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tag.cat{background:#e0e7ff;color:#3730a3;font-weight:600}.tag.zone{background:var(--grl);color:var(--ts)}
 .tag.ovd{background:var(--op);color:var(--or);font-weight:700}.tag.due{background:var(--yp);color:#92400e;font-weight:700}
 .ttime{font-size:12px;color:var(--ts);margin-top:4px}
-.ttimer{border-top:1px solid var(--grl);padding:10px 16px;display:flex;align-items:center;gap:10px;background:#fafafa}
-.tdisp{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ts);min-width:60px;letter-spacing:.5px}
+.tedit{background:none;border:none;font-size:16px;cursor:pointer;padding:4px;opacity:.5;flex-shrink:0}
+.ttimer{border-top:1px solid var(--grl);padding:10px 16px;display:flex;align-items:center;gap:8px;background:#fafafa;flex-wrap:wrap}
+.tdisp{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ts);min-width:60px}
 .tdisp.run{color:var(--g)}
 .tbstart{background:var(--g);color:#fff;border:none;border-radius:8px;padding:9px 14px;font-size:14px;font-weight:700;cursor:pointer;flex:1}
 .tbstop{background:var(--or);color:#fff;border:none;border-radius:8px;padding:9px 14px;font-size:14px;font-weight:700;cursor:pointer;flex:1}
 .tbdone2{background:var(--grl);color:var(--g);border:2px solid var(--g);border-radius:8px;padding:9px 14px;font-size:14px;font-weight:700;cursor:pointer;flex:1}
-.tbabort{background:var(--grl);color:var(--ts);border:2px solid var(--grm);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0}
+
+.tbswap{background:#fff;color:var(--g);border:2px solid var(--g);border-radius:8px;padding:9px 10px;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0}
+.swap-item{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:var(--sh);cursor:pointer;border-left:4px solid var(--grm);transition:all .15s}
+.swap-item:active{background:var(--gp);border-left-color:var(--g)}
+.swap-item.upgrade{border-left-color:var(--or)}
+.swap-item-desc{font-size:14px;font-weight:600;margin-bottom:4px;line-height:1.3}
+.swap-item-meta{display:flex;gap:6px;flex-wrap:wrap}
+
+.tbabort{background:var(--grl);color:var(--ts);border:2px solid var(--grm);border-radius:8px;padding:9px 10px;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0}
 .moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100;align-items:flex-end;justify-content:center}
 .moverlay.on{display:flex}
-.modal{background:#fff;border-radius:22px 22px 0 0;padding:24px 20px 40px;width:100%;max-width:500px}
+.modal{background:#fff;border-radius:22px 22px 0 0;padding:24px 20px 40px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
 .mhand{width:40px;height:4px;background:var(--grm);border-radius:2px;margin:0 auto 20px}
 .mtask{font-size:16px;font-weight:700;margin-bottom:4px;line-height:1.3}
 .msub{font-size:13px;color:var(--ts);margin-bottom:20px}
-.mrow{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.mrow{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .mrow label{font-size:15px;font-weight:500;flex:1}
 .mrow input{width:80px;border:2px solid var(--grm);border-radius:10px;padding:10px 12px;font-size:18px;text-align:center;outline:none;font-weight:700}
 .mrow input:focus{border-color:var(--g)}
 .mbtns{display:flex;gap:10px}
 .mbtn{flex:1;padding:15px;border-radius:12px;font-size:16px;font-weight:700;border:none;cursor:pointer}
 .mbtn.ok{background:var(--g);color:#fff}.mbtn.no{background:var(--grl);color:var(--tx)}
+.fg{margin-bottom:16px}.fl{font-size:14px;font-weight:700;margin-bottom:8px;display:block;color:var(--tx)}
+.fi{width:100%;border:2px solid var(--grm);border-radius:10px;padding:12px 14px;font-size:15px;outline:none;font-family:inherit}
+.fi:focus{border-color:var(--g)}
+select.fi{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.copts{display:flex;gap:10px;flex-wrap:wrap}
+.copt{width:38px;height:38px;border-radius:50%;cursor:pointer;border:3px solid transparent}
+.copt.on{border-color:#111;transform:scale(1.18)}
 .hitem{background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:var(--sh)}
 .htop{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
 .hdesc{font-size:14px;font-weight:600;flex:1;line-height:1.3}
 .hwho{font-size:11px;font-weight:700;padding:3px 9px;border-radius:10px;color:#fff;flex-shrink:0}
 .hmeta{display:flex;gap:8px;flex-wrap:wrap}
 .hm{font-size:12px;color:var(--ts)}
-.fg{margin-bottom:18px}.fl{font-size:14px;font-weight:700;margin-bottom:8px;display:block}
-.fi{width:100%;border:2px solid var(--grm);border-radius:10px;padding:13px 14px;font-size:16px;outline:none}
-.fi:focus{border-color:var(--g)}
-.copts{display:flex;gap:10px;flex-wrap:wrap}
-.copt{width:38px;height:38px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .15s}
-.copt.on{border-color:#111;transform:scale(1.18)}
 .sumbig{text-align:center;padding:20px 0 16px}
 .sumoji{font-size:72px;line-height:1}.sumtit{font-size:24px;font-weight:800;margin-top:10px}
 .sumsub{font-size:15px;color:var(--ts);margin-top:4px}
@@ -111,10 +122,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .empty{text-align:center;padding:52px 20px;color:var(--ts)}.empty .ico{font-size:52px;margin-bottom:12px}
 .hint{background:#fff;border-radius:var(--r);padding:14px;margin-bottom:14px;box-shadow:var(--sh);font-size:13px;color:var(--ts);line-height:1.6;border-left:4px solid var(--g)}
 .hint strong{color:var(--tx);display:block;margin-bottom:4px}
+.spinner{display:inline-block;width:20px;height:20px;border:3px solid var(--gm);border-top-color:var(--g);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading{text-align:center;padding:40px 20px;color:var(--ts)}
 </style>
 </head>
 <body>
 
+<!-- WELCOME -->
 <div class="scr on" id="s-welcome">
   <div class="cnt">
     <div class="wlogo">🏠</div><div class="wtit">CleanHome</div>
@@ -125,6 +140,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
+<!-- ADD USER -->
 <div class="scr" id="s-adduser">
   <div class="hdr"><button class="hbk" onclick="go('s-welcome')">←</button><h1>Add Person</h1></div>
   <div class="cnt">
@@ -136,12 +152,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
+<!-- HOME -->
 <div class="scr" id="s-home">
   <div class="hdr">
     <div style="flex:1"><div class="hsub" id="hname"></div><h1>Dashboard</h1></div>
     <button onclick="go('s-welcome')" style="background:none;border:none;color:rgba(255,255,255,.85);font-size:13px;cursor:pointer">Switch 👤</button>
   </div>
-  <div class="sbar"><div class="sdot" id="sdot" style="animation:pulse 1s infinite"></div><span id="smsg">Connecting…</span></div>
+  <div class="sbar"><div class="sdot" id="sdot" style="animation:pulse 1s infinite"></div><span id="smsg">Loading tasks…</span></div>
   <div class="cnt">
     <div class="sgrid">
       <div class="sbox urg"><div class="snum" id="st-o">—</div><div class="slbl">Overdue</div></div>
@@ -149,14 +166,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
     <div class="sgrid">
       <div class="sbox ok"><div class="snum" id="st-w">—</div><div class="slbl">Done This Week</div></div>
-      <div class="sbox ok"><div class="snum">134</div><div class="slbl">Total Tasks</div></div>
+      <div class="sbox ok"><div class="snum" id="st-total">—</div><div class="slbl">Total Tasks</div></div>
     </div>
-    <button class="bbtn" onclick="go('s-time')">▶ Start Cleaning Session</button>
+    <button class="bbtn" id="start-btn" onclick="go('s-time')" disabled>▶ Start Cleaning Session</button>
     <button class="bbtn sec" onclick="go('s-history')">📋 View History</button>
-    <button class="bbtn sec" onclick="showInsights()">📊 Time Insights</button>
+    <button class="bbtn sec" onclick="go('s-insights')">📊 Time Insights</button>
+    <button class="bbtn sec" onclick="go('s-manage')">✏️ Manage Tasks</button>
   </div>
 </div>
 
+<!-- TIME -->
 <div class="scr" id="s-time">
   <div class="hdr"><button class="hbk" onclick="go('s-home')">←</button><h1>How much time?</h1></div>
   <div class="cnt">
@@ -184,18 +203,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
     <div class="tleg">
       <span class="tbdg t1">🟢 T1 Must Do</span>
-      <span class="tbdg t2">🟡 T2 When Time Allows</span>
-      <span class="tbdg t3">⚪ T3 Deep Cleans</span>
+      <span class="tbdg t2">🟡 T2 When Time</span>
+      <span class="tbdg t3">⚪ T3 Deep Clean</span>
     </div>
     <button class="bbtn" id="build-btn" onclick="startSess()" disabled>Build My Task List →</button>
   </div>
 </div>
 
+<!-- SESSION -->
 <div class="scr" id="s-session">
   <div class="hdr">
     <button class="hbk" onclick="leaveSess()">←</button>
     <div style="flex:1"><h1>Cleaning Session</h1><div class="hsub" id="slbl"></div></div>
-    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><button onclick="finishSess()" style="background:none;border:none;color:rgba(255,255,255,.85);font-size:13px;cursor:pointer;font-weight:700">✓ Finish</button><button onclick="leaveSess()" style="background:none;border:none;color:rgba(255,255,255,.6);font-size:11px;cursor:pointer">🏠 Home</button></div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+      <button onclick="finishSess()" style="background:none;border:none;color:rgba(255,255,255,.85);font-size:13px;cursor:pointer;font-weight:700">✓ Finish</button>
+      <button onclick="leaveSess()" style="background:none;border:none;color:rgba(255,255,255,.6);font-size:11px;cursor:pointer">🏠 Home</button>
+    </div>
   </div>
   <div class="cnt">
     <div class="plbl"><span id="ptxt">0 of 0 done</span><span id="tused">0 min logged</span></div>
@@ -206,17 +229,104 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
+<!-- MANAGE TASKS -->
+<div class="scr" id="s-manage">
+  <div class="hdr">
+    <button class="hbk" onclick="go('s-home')">←</button><h1>Manage Tasks</h1>
+    <button onclick="go('s-addtask')" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer">＋ Add</button>
+  </div>
+  <div class="cnt">
+    <div class="fbar" id="manage-filters"></div>
+    <div id="manage-list"></div>
+  </div>
+</div>
+
+<!-- ADD TASK -->
+<div class="scr" id="s-addtask">
+  <div class="hdr"><button class="hbk" onclick="go('s-manage')">←</button><h1>Add Task</h1></div>
+  <div class="cnt">
+    <div class="card">
+      <div class="fg"><label class="fl">Description</label><textarea class="fi" id="at-desc" rows="3" placeholder="e.g. Wipe the kitchen windows and frame"></textarea></div>
+      <div class="fg"><label class="fl">Category</label>
+        <select class="fi" id="at-cat"><option>Dusting</option>
+<option>Vacuuming</option>
+<option>Mopping</option>
+<option>Wiping</option>
+<option>Scrubbing</option>
+<option>Arranging</option>
+<option>Deep Clean</option>
+<option>Polishing</option></select>
+      </div>
+      <div class="frow2">
+        <div class="fg"><label class="fl">Zone</label>
+          <select class="fi" id="at-zone">
+            <optgroup label="Downstairs"><option>Living room</option>
+<option>Living Room</option>
+<option>Kid Living Room</option>
+<option>Dining Room</option>
+<option>Kitchen</option>
+<option>Foyer</option>
+<option>Downstairs Washroom</option></optgroup>
+            <optgroup label="Upstairs"><option>Upstairs Foyer</option>
+<option>Master Bedroom</option>
+<option>Master Ensuite</option>
+<option>Kid Bedroom</option>
+<option>Reese's Office</option>
+<option>Washroom 1</option>
+<option>Washroom 2</option></optgroup>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Floor</label>
+          <select class="fi" id="at-floor"><option>Downstairs</option><option>Upstairs</option></select>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Frequency</label>
+        <select class="fi" id="at-freq"><option>Daily</option>
+<option>Semi Weekly</option>
+<option>Weekly</option>
+<option>Bi-Weekly</option>
+<option>Semi Monthly</option>
+<option>Monthly</option>
+<option>I in 2 Month</option>
+<option>Quarterly</option>
+<option>Semi Annual</option>
+<option>Annual</option></select>
+      </div>
+      <div class="frow2">
+        <div class="fg"><label class="fl">Min Time (mins)</label><input class="fi" type="number" id="at-min" value="10" min="1" max="300"></div>
+        <div class="fg"><label class="fl">Max Time (mins)</label><input class="fi" type="number" id="at-max" value="20" min="1" max="300"></div>
+      </div>
+      <div class="fg"><label class="fl">Priority Tier</label>
+        <select class="fi" id="at-tier">
+          <option value="1">Tier 1 — Must Do First</option>
+          <option value="2" selected>Tier 2 — When Time Allows</option>
+          <option value="3">Tier 3 — Deep Clean</option>
+        </select>
+      </div>
+    </div>
+    <button class="bbtn" id="at-save-btn" onclick="saveNewTask()">Save Task to Google Sheets</button>
+  </div>
+</div>
+
+<!-- HISTORY -->
 <div class="scr" id="s-history">
   <div class="hdr"><button class="hbk" onclick="go('s-home')">←</button><h1>History</h1></div>
   <div class="cnt"><div class="fbar" id="hfilt"></div><div id="hlist"></div></div>
 </div>
 
+<!-- INSIGHTS -->
+<div class="scr" id="s-insights">
+  <div class="hdr"><button class="hbk" onclick="go('s-home')">←</button><h1>Time Insights</h1></div>
+  <div class="cnt"><div class="card"><div class="ctit">Your avg vs others · ⚠ flags large gaps</div><div id="insights-list"></div></div></div>
+</div>
+
+<!-- SUMMARY -->
 <div class="scr" id="s-summary">
   <div class="hdr"><h1>Session Complete 🎉</h1></div>
   <div class="cnt">
     <div class="card">
       <div class="sumbig">
-        <div class="sumoji" id="se">🎉</div><div class="sumtit" id="st2">Great work!</div><div class="sumsub" id="ss"></div>
+        <div class="sumoji" id="se">🎉</div><div class="sumtit" id="st2"></div><div class="sumsub" id="ss"></div>
         <div class="sumgrid">
           <div class="sumbox"><div class="sumnum" id="sd">0</div><div class="sumlbl">Done</div></div>
           <div class="sumbox"><div class="sumnum" id="sm">0</div><div class="sumlbl">Mins</div></div>
@@ -228,30 +338,80 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<div class="moverlay" id="modal">
+<!-- DONE MODAL -->
+<div class="moverlay" id="modal-done">
   <div class="modal">
     <div class="mhand"></div>
     <div class="mtask" id="m-task"></div>
     <div class="msub">Adjust time if needed, then confirm</div>
     <div class="mrow"><label>Actual time (minutes)</label><input type="number" id="m-mins" min="1" max="300"></div>
-    <div class="mbtns"><button class="mbtn no" onclick="closeModal()">Cancel</button><button class="mbtn ok" onclick="confirmDone()">✓ Mark Done</button></div>
+    <div class="mbtns"><button class="mbtn no" onclick="closeModal('modal-done')">Cancel</button><button class="mbtn ok" onclick="confirmDone()">✓ Mark Done</button></div>
+  </div>
+</div>
+
+<!-- EDIT TASK MODAL -->
+<div class="moverlay" id="modal-edit">
+  <div class="modal">
+    <div class="mhand"></div>
+    <div style="font-size:16px;font-weight:700;margin-bottom:16px">Edit Task</div>
+    <div class="fg"><label class="fl">Description</label><textarea class="fi" id="et-desc" rows="3"></textarea></div>
+    <div class="fg"><label class="fl">Category</label>
+      <select class="fi" id="et-cat"><option>Dusting</option>
+<option>Vacuuming</option>
+<option>Mopping</option>
+<option>Wiping</option>
+<option>Scrubbing</option>
+<option>Arranging</option>
+<option>Deep Clean</option>
+<option>Polishing</option></select>
+    </div>
+    <div class="frow2">
+      <div class="fg"><label class="fl">Min Time</label><input class="fi" type="number" id="et-min" min="1" max="300"></div>
+      <div class="fg"><label class="fl">Max Time</label><input class="fi" type="number" id="et-max" min="1" max="300"></div>
+    </div>
+    <div class="fg"><label class="fl">Frequency</label>
+      <select class="fi" id="et-freq"><option>Daily</option>
+<option>Semi Weekly</option>
+<option>Weekly</option>
+<option>Bi-Weekly</option>
+<option>Semi Monthly</option>
+<option>Monthly</option>
+<option>I in 2 Month</option>
+<option>Quarterly</option>
+<option>Semi Annual</option>
+<option>Annual</option></select>
+    </div>
+    <div class="fg"><label class="fl">Priority Tier</label>
+      <select class="fi" id="et-tier">
+        <option value="1">Tier 1 — Must Do First</option>
+        <option value="2">Tier 2 — When Time Allows</option>
+        <option value="3">Tier 3 — Deep Clean</option>
+      </select>
+    </div>
+    <div class="mbtns" style="margin-top:8px">
+      <button class="mbtn no" onclick="closeModal('modal-edit')">Cancel</button>
+      <button class="mbtn ok" id="et-save-btn" onclick="saveEditTask()">Save to Sheets</button>
+    </div>
   </div>
 </div>
 
 <script>
-const API='https://script.google.com/macros/s/AKfycbxakos7FeSxDJZPFP4jvtoNkBMKxHud60OYuztd9VtX2b9heKIyOeczOQA_6GCdUxL1_A/exec';
-const CAT_ORDER=["Dusting", "Vacuuming", "Mopping", "Wiping", "Scrubbing", "Arranging", "Deep Clean", "Polishing"];
-const TASKS=[{"id": 1, "description": "Vaccum Living Room", "minTime": 15, "maxTime": 20, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Vacuuming", "interval": 7, "tier": 1, "tierOrder": 30}, {"id": 2, "description": "Dusting Living room - dog window", "minTime": 5, "maxTime": 10, "frequency": "Daily", "zone": "Living room", "floor": "Downstairs", "category": "Dusting", "interval": 1, "tier": 1, "tierOrder": 10}, {"id": 3, "description": "Dusting Living room - Other window", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Dusting", "interval": 7, "tier": 1, "tierOrder": 10}, {"id": 4, "description": "Dusting golden chair base, Wall shelves and Cabinet", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Dusting", "interval": 7, "tier": 1, "tierOrder": 10}, {"id": 5, "description": "Dining coffee table and cleaning steam clean machine", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Dining Room", "floor": "Downstairs", "category": "Arranging", "interval": 7, "tier": 3, "tierOrder": 10}, {"id": 6, "description": "Wipe family pic", "minTime": 5, "maxTime": 10, "frequency": "Quarterly", "zone": "Dining Room", "floor": "Downstairs", "category": "Wiping", "interval": 91, "tier": 2, "tierOrder": 20}, {"id": 7, "description": "Floor grout living room", "minTime": 30, "maxTime": 45, "frequency": "I in 2 Month", "zone": "Living room", "floor": "Downstairs", "category": "Deep Clean", "interval": 60, "tier": 3, "tierOrder": 10}, {"id": 8, "description": "Floor grout dining room", "minTime": 30, "maxTime": 45, "frequency": "I in 2 Month", "zone": "Dining Room", "floor": "Downstairs", "category": "Deep Clean", "interval": 60, "tier": 3, "tierOrder": 10}, {"id": 9, "description": "Floor grout Kitchen", "minTime": 30, "maxTime": 45, "frequency": "I in 2 Month", "zone": "Kitchen", "floor": "Downstairs", "category": "Deep Clean", "interval": 60, "tier": 3, "tierOrder": 10}, {"id": 10, "description": "Floor grout Foyer", "minTime": 30, "maxTime": 45, "frequency": "I in 2 Month", "zone": "Foyer", "floor": "Downstairs", "category": "Deep Clean", "interval": 60, "tier": 3, "tierOrder": 10}, {"id": 11, "description": "Floor grout downstairs washroom", "minTime": 30, "maxTime": 45, "frequency": "I in 2 Month", "zone": "Downstairs Washroom", "floor": "Downstairs", "category": "Deep Clean", "interval": 60, "tier": 3, "tierOrder": 10}, {"id": 12, "description": "Wipe dining area coffee tables cabinets up and down", "minTime": 10, "maxTime": 15, "frequency": "I in 2 Month", "zone": "Dining Room", "floor": "Downstairs", "category": "Wiping", "interval": 60, "tier": 2, "tierOrder": 20}, {"id": 13, "description": "Wipe mini fridge and the glass", "minTime": 10, "maxTime": 15, "frequency": "Bi-Weekly", "zone": "Dining Room", "floor": "Downstairs", "category": "Wiping", "interval": 14, "tier": 2, "tierOrder": 20}, {"id": 14, "description": "Remove the bench by the deck door and broom mop the floor and the side wall", "minTime": 15, "maxTime": 25, "frequency": "I in 2 Month", "zone": "Dining Room", "floor": "Downstairs", "category": "Mopping", "interval": 60, "tier": 1, "tierOrder": 40}, {"id": 15, "description": "Wipe the dining table light", "minTime": 5, "maxTime": 10, "frequency": "I in 2 Month", "zone": "Dining Room", "floor": "Downstairs", "category": "Wiping", "interval": 60, "tier": 2, "tierOrder": 20}, {"id": 16, "description": "Wipe the dining table windows and side wood from top to bottom (x 3windows and 1 Dog Door)", "minTime": 30, "maxTime": 45, "frequency": "I in 2 Month", "zone": "Dining Room", "floor": "Downstairs", "category": "Wiping", "interval": 60, "tier": 1, "tierOrder": 20}, {"id": 17, "description": "Wipe dog door and the frame esp at middle section and all the base board, wipe (x3 windows ) bottom shelf", "minTime": 20, "maxTime": 25, "frequency": "Weekly", "zone": "Dining Room", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 20}, {"id": 18, "description": "Wipe Dining chair legs", "minTime": 30, "maxTime": 45, "frequency": "I in 2 Month", "zone": "Dining Room", "floor": "Downstairs", "category": "Wiping", "interval": 60, "tier": 2, "tierOrder": 20}, {"id": 19, "description": "Vaccum Living Room chair seats", "minTime": 15, "maxTime": 20, "frequency": "Bi-Weekly", "zone": "Dining Room", "floor": "Downstairs", "category": "Vacuuming", "interval": 14, "tier": 1, "tierOrder": 30}, {"id": 20, "description": "Wipe kitchen cabinets", "minTime": 20, "maxTime": 30, "frequency": "Monthly", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 30, "tier": 2, "tierOrder": 20}, {"id": 21, "description": "Wipe kichen windows and Window screen and the frame", "minTime": 45, "maxTime": 60, "frequency": "I in 2 Month", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 60, "tier": 2, "tierOrder": 20}, {"id": 22, "description": "Wipe the windows seal/ledge and back tiles", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 20}, {"id": 23, "description": "Wipe Dish Washer", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 24, "description": "Wipe Fridge", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 25, "description": "Wipe Microwave", "minTime": 15, "maxTime": 20, "frequency": "Weekly", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 26, "description": "Wipe Microwave cabinet", "minTime": 5, "maxTime": 5, "frequency": "Weekly", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 27, "description": "Deep clean fridge", "minTime": 45, "maxTime": 60, "frequency": "Quarterly", "zone": "Kitchen", "floor": "Downstairs", "category": "Deep Clean", "interval": 91, "tier": 3, "tierOrder": 10}, {"id": 28, "description": "Wipe above fridge cabinet in and out, above microwave cabinet out", "minTime": 20, "maxTime": 25, "frequency": "Quarterly", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 91, "tier": 2, "tierOrder": 20}, {"id": 29, "description": "Clean stove, back tiles, blender outside,switch, and blackplatform and center island (steam clean )", "minTime": 20, "maxTime": 25, "frequency": "Weekly", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 20}, {"id": 30, "description": "Clean sink", "minTime": 20, "maxTime": 25, "frequency": "Weekly", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 20}, {"id": 31, "description": "Cleaning inside a cabinet under the stove x 2", "minTime": 30, "maxTime": 45, "frequency": "Quarterly", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 91, "tier": 3, "tierOrder": 10}, {"id": 32, "description": "Cleaning all drawers left of the stove", "minTime": 60, "maxTime": 90, "frequency": "Semi Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 182, "tier": 3, "tierOrder": 10}, {"id": 33, "description": "Cleaning indian corner cabinet (right of the stove)", "minTime": 60, "maxTime": 90, "frequency": "Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 365, "tier": 3, "tierOrder": 10}, {"id": 34, "description": "Cleaning set of Drawers and bottom cabinet (left of the dishwasher)", "minTime": 60, "maxTime": 90, "frequency": "Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 365, "tier": 3, "tierOrder": 10}, {"id": 35, "description": "Cleaning garbage bin cabinet and hidden drawer", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Arranging", "interval": 7, "tier": 3, "tierOrder": 10}, {"id": 36, "description": "Cleaning set of drawers and bottom cabinet (right of the garbage)", "minTime": 60, "maxTime": 90, "frequency": "Semi Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 182, "tier": 3, "tierOrder": 10}, {"id": 37, "description": "Cleaning Island right row of drawers and cabinets (one we keep plates)", "minTime": 60, "maxTime": 90, "frequency": "Semi Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 182, "tier": 3, "tierOrder": 10}, {"id": 38, "description": "Cleaning Island middle row of drawers and cabinets", "minTime": 60, "maxTime": 90, "frequency": "Semi Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 182, "tier": 3, "tierOrder": 10}, {"id": 39, "description": "Cleaning Island left row of drawers and cabinets  (one we keep bowls at bottom)", "minTime": 60, "maxTime": 90, "frequency": "Semi Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 182, "tier": 3, "tierOrder": 10}, {"id": 40, "description": "Cleaning & Arranging tupperware cabinet", "minTime": 60, "maxTime": 90, "frequency": "I in 2 Month", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 60, "tier": 3, "tierOrder": 10}, {"id": 41, "description": "Cleaning & Arranging cabinet ( right of tupperware cabinet)", "minTime": 60, "maxTime": 90, "frequency": "Quarterly", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 91, "tier": 3, "tierOrder": 10}, {"id": 42, "description": "Cleaning & Arranging cabinet ( Below microwave)", "minTime": 60, "maxTime": 90, "frequency": "Semi Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 182, "tier": 3, "tierOrder": 10}, {"id": 43, "description": "Cleaning & Arranging cabinet ( where the bar chairs are)", "minTime": 60, "maxTime": 90, "frequency": "Semi Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 182, "tier": 3, "tierOrder": 10}, {"id": 44, "description": "Cleaning & Arranging Pantry", "minTime": 90, "maxTime": 120, "frequency": "Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 365, "tier": 3, "tierOrder": 10}, {"id": 45, "description": "Deep clean oven", "minTime": 45, "maxTime": 60, "frequency": "Quarterly", "zone": "Kitchen", "floor": "Downstairs", "category": "Deep Clean", "interval": 91, "tier": 3, "tierOrder": 10}, {"id": 46, "description": "Wipe the bar chair and the feet", "minTime": 20, "maxTime": 30, "frequency": "Weekly", "zone": "Kitchen", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 47, "description": "Cleaning & Arranging cabinet below coffee machine", "minTime": 45, "maxTime": 60, "frequency": "Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 365, "tier": 3, "tierOrder": 10}, {"id": 48, "description": "Cleaning & Arranging cabinet above coffee machine", "minTime": 45, "maxTime": 60, "frequency": "Annual", "zone": "Kitchen", "floor": "Downstairs", "category": "Arranging", "interval": 365, "tier": 3, "tierOrder": 10}, {"id": 49, "description": "adding polish to dinning cabinet above and below", "minTime": 60, "maxTime": 90, "frequency": "Annual", "zone": "Dining Room", "floor": "Downstairs", "category": "Polishing", "interval": 365, "tier": 3, "tierOrder": 10}, {"id": 50, "description": "Deep Cleaning  Living room couch and recliners (vaccum and polish)", "minTime": 30, "maxTime": 45, "frequency": "Semi Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Vacuuming", "interval": 3, "tier": 1, "tierOrder": 30}, {"id": 51, "description": "Quick clean wipe Living room couch and recliners (vaccum and polish)", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Vacuuming", "interval": 7, "tier": 1, "tierOrder": 30}, {"id": 52, "description": "Cleaning living room wall visible areas /switches", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Arranging", "interval": 7, "tier": 3, "tierOrder": 10}, {"id": 53, "description": "Cleaning dining room wall visible areas /switches (area by the deck door)", "minTime": 15, "maxTime": 20, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Arranging", "interval": 7, "tier": 3, "tierOrder": 10}, {"id": 54, "description": "Deep Clean Vaccum and polish  Kid room couch (black)", "minTime": 15, "maxTime": 20, "frequency": "Semi Weekly", "zone": "Kid Living Room", "floor": "Downstairs", "category": "Vacuuming", "interval": 3, "tier": 1, "tierOrder": 30}, {"id": 55, "description": "Quick clean wipe Living room couch and recliners (vaccum and polish)", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Kid Living Room", "floor": "Downstairs", "category": "Vacuuming", "interval": 7, "tier": 1, "tierOrder": 30}, {"id": 56, "description": "cleaning the wall and base board behind lily plant", "minTime": 10, "maxTime": 15, "frequency": "Semi Weekly", "zone": "Kid Living Room", "floor": "Downstairs", "category": "Arranging", "interval": 3, "tier": 3, "tierOrder": 10}, {"id": 57, "description": "Quick clean wipe door frame to the entrance of the kid room bottom up to day 6 ft", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Kid Living Room", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 20}, {"id": 58, "description": "Quick clean wipe door frame to the entrance of the Living room bottom up to day 6 ft", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Living Room", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 20}, {"id": 59, "description": "deep cleaning the door frame to the entrance of the kid room top to bottom", "minTime": 15, "maxTime": 20, "frequency": "Monthly", "zone": "Kid Living Room", "floor": "Downstairs", "category": "Deep Clean", "interval": 30, "tier": 3, "tierOrder": 10}, {"id": 60, "description": "deep cleaning the door frame to the entrance of the=living room top to bottom", "minTime": 15, "maxTime": 20, "frequency": "Monthly", "zone": "Living Room", "floor": "Downstairs", "category": "Deep Clean", "interval": 30, "tier": 3, "tierOrder": 10}, {"id": 61, "description": "deep cleaning the door frame to the attic below stairs and the baseboard around that wall", "minTime": 5, "maxTime": 10, "frequency": "Monthly", "zone": "Living Room", "floor": "Downstairs", "category": "Deep Clean", "interval": 30, "tier": 3, "tierOrder": 10}, {"id": 62, "description": "deep cleaning the baseboard behind the couch wall", "minTime": 10, "maxTime": 15, "frequency": "Semi Monthly", "zone": "Living Room", "floor": "Downstairs", "category": "Deep Clean", "interval": 15, "tier": 3, "tierOrder": 10}, {"id": 63, "description": "deep cleaning the baseboard on the the window wall", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Deep Clean", "interval": 7, "tier": 3, "tierOrder": 10}, {"id": 64, "description": "deep cleaning the baseboard on the the grey chair wall", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Deep Clean", "interval": 7, "tier": 3, "tierOrder": 10}, {"id": 65, "description": "Wipe the black fireplace net , frame tiles", "minTime": 10, "maxTime": 15, "frequency": "Monthly", "zone": "Living Room", "floor": "Downstairs", "category": "Wiping", "interval": 30, "tier": 2, "tierOrder": 20}, {"id": 66, "description": "Wipe the karoke machine", "minTime": 2, "maxTime": 5, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 67, "description": "wipe the air filter", "minTime": 2, "maxTime": 5, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 68, "description": "wipe the Roomba and the storage and beneath the Roomba", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Living room", "floor": "Downstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 69, "description": "Vacuum Upstairs Foyer", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Upstairs Foyer", "floor": "Upstairs", "category": "Vacuuming", "interval": 7, "tier": 1, "tierOrder": 30}, {"id": 70, "description": "Mop/Wipe Upstairs Foyer floor", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Upstairs Foyer", "floor": "Upstairs", "category": "Mopping", "interval": 7, "tier": 1, "tierOrder": 40}, {"id": 71, "description": "Dust Upstairs Foyer surfaces", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Upstairs Foyer", "floor": "Upstairs", "category": "Dusting", "interval": 7, "tier": 1, "tierOrder": 10}, {"id": 72, "description": "Wipe Upstairs Foyer baseboards", "minTime": 10, "maxTime": 15, "frequency": "Semi Monthly", "zone": "Upstairs Foyer", "floor": "Upstairs", "category": "Wiping", "interval": 15, "tier": 2, "tierOrder": 20}, {"id": 73, "description": "Wipe Upstairs Foyer door frames and doors", "minTime": 10, "maxTime": 15, "frequency": "Monthly", "zone": "Upstairs Foyer", "floor": "Upstairs", "category": "Wiping", "interval": 30, "tier": 2, "tierOrder": 20}, {"id": 74, "description": "Wipe Upstairs Foyer walls and light switches", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Upstairs Foyer", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 40}, {"id": 75, "description": "Vacuum Reese's Office", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Reese's Office", "floor": "Upstairs", "category": "Vacuuming", "interval": 7, "tier": 1, "tierOrder": 30}, {"id": 76, "description": "Vacuum Master Bedroom", "minTime": 15, "maxTime": 20, "frequency": "Weekly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Vacuuming", "interval": 7, "tier": 1, "tierOrder": 30}, {"id": 77, "description": "Mop/Wipe Master Bedroom floor", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Mopping", "interval": 7, "tier": 1, "tierOrder": 40}, {"id": 78, "description": "Dust Master Bedroom - surfaces and furniture", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Dusting", "interval": 7, "tier": 1, "tierOrder": 10}, {"id": 79, "description": "Dust Master Bedroom ceiling fan blades and motor", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Dusting", "interval": 7, "tier": 1, "tierOrder": 10}, {"id": 80, "description": "Wipe Master Bedroom ceiling fan blades deep clean", "minTime": 15, "maxTime": 20, "frequency": "Monthly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 30, "tier": 2, "tierOrder": 40}, {"id": 81, "description": "Wipe Master Bedroom baseboards", "minTime": 10, "maxTime": 15, "frequency": "Semi Monthly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 15, "tier": 2, "tierOrder": 20}, {"id": 82, "description": "Wipe Master Bedroom doors and door frames top to bottom", "minTime": 10, "maxTime": 15, "frequency": "Monthly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 30, "tier": 2, "tierOrder": 20}, {"id": 83, "description": "Quick wipe Master Bedroom door frame bottom 6ft", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 84, "description": "Wipe Master Bedroom windows and frames", "minTime": 20, "maxTime": 30, "frequency": "I in 2 Month", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 60, "tier": 2, "tierOrder": 20}, {"id": 85, "description": "Wipe Master Bedroom window sills/ledges", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 86, "description": "Wipe Master Bedroom walls and light switches", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 40}, {"id": 87, "description": "Deep clean Master Bedroom walls visible areas", "minTime": 15, "maxTime": 20, "frequency": "Quarterly", "zone": "Master Bedroom", "floor": "Upstairs", "category": "Deep Clean", "interval": 91, "tier": 3, "tierOrder": 10}, {"id": 88, "description": "Vacuum/Sweep Master Ensuite floor", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Master Ensuite", "floor": "Upstairs", "category": "Vacuuming", "interval": 7, "tier": 1, "tierOrder": 30}, {"id": 89, "description": "Mop/Wipe Master Ensuite floor", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Master Ensuite", "floor": "Upstairs", "category": "Mopping", "interval": 7, "tier": 1, "tierOrder": 40}, {"id": 90, "description": "Scrub Master Ensuite shower (walls, floor, door)", "minTime": 20, "maxTime": 30, "frequency": "Weekly", "zone": "Master Ensuite", "floor": "Upstairs", "category": "Scrubbing", "interval": 7, "tier": 1, "tierOrder": 65}, {"id": 91, "description": "Scrub Master Ensuite toilet", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Master Ensuite", "floor": "Upstairs", "category": "Scrubbing", "interval": 7, "tier": 1, "tierOrder": 60}, {"id": 92, "description": "Wipe Master Ensuite sink and countertop", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Master Ensuite", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 60}, {"id": 93, "description": "Wipe Master Ensuite mirrors", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Master Ensuite", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 60}, {"id": 94, "description": "Wipe Master Ensuite cabinet fronts", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Master Ensuite", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 40}, {"id": 95, "description": "Wipe Master Ensuite walls and light switches", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Master Ensuite", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 40}, {"id": 96, "description": "Wipe Master Ensuite baseboards", "minTime": 10, "maxTime": 15, "frequency": "Semi Monthly", "zone": "Master Ensuite", "floor": "Upstairs", "category": "Wiping", "interval": 15, "tier": 2, "tierOrder": 20}, {"id": 97, "description": "Deep clean Master Ensuite shower grout and caulking", "minTime": 20, "maxTime": 30, "frequency": "Monthly", "zone": "Master Ensuite", "floor": "Upstairs", "category": "Deep Clean", "interval": 30, "tier": 3, "tierOrder": 10}, {"id": 98, "description": "Vacuum Kid Bedroom", "minTime": 15, "maxTime": 20, "frequency": "Weekly", "zone": "Kid Bedroom", "floor": "Upstairs", "category": "Vacuuming", "interval": 7, "tier": 1, "tierOrder": 30}, {"id": 99, "description": "Mop/Wipe Kid Bedroom floor", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Kid Bedroom", "floor": "Upstairs", "category": "Mopping", "interval": 7, "tier": 1, "tierOrder": 40}, {"id": 100, "description": "Dust Kid Bedroom - surfaces and furniture", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Kid Bedroom", "floor": "Upstairs", "category": "Dusting", "interval": 7, "tier": 1, "tierOrder": 10}, {"id": 101, "description": "Wipe Kid Bedroom baseboards", "minTime": 10, "maxTime": 15, "frequency": "Semi Monthly", "zone": "Kid Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 15, "tier": 2, "tierOrder": 20}, {"id": 102, "description": "Wipe Kid Bedroom doors and door frames top to bottom", "minTime": 10, "maxTime": 15, "frequency": "Monthly", "zone": "Kid Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 30, "tier": 2, "tierOrder": 20}, {"id": 103, "description": "Quick wipe Kid Bedroom door frame bottom 6ft", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Kid Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 104, "description": "Wipe Kid Bedroom windows and frames", "minTime": 20, "maxTime": 30, "frequency": "I in 2 Month", "zone": "Kid Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 60, "tier": 2, "tierOrder": 20}, {"id": 105, "description": "Wipe Kid Bedroom window sills/ledges", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Kid Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 20}, {"id": 106, "description": "Wipe Kid Bedroom walls and light switches", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Kid Bedroom", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 40}, {"id": 107, "description": "Vacuum/Sweep Washroom 1 floor", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Vacuuming", "interval": 7, "tier": 1, "tierOrder": 30}, {"id": 108, "description": "Mop Washroom 1 floor", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Mopping", "interval": 7, "tier": 1, "tierOrder": 40}, {"id": 109, "description": "Scrub Washroom 1 toilet (bowl, seat, base, tank)", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Scrubbing", "interval": 7, "tier": 1, "tierOrder": 60}, {"id": 110, "description": "Wipe Washroom 1 double sink - both basins, faucets, countertop", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 60}, {"id": 111, "description": "Scrub Washroom 1 tub inside and outside", "minTime": 20, "maxTime": 30, "frequency": "Weekly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Scrubbing", "interval": 7, "tier": 1, "tierOrder": 70}, {"id": 112, "description": "Deep clean Washroom 1 tub grout and caulking", "minTime": 20, "maxTime": 30, "frequency": "Monthly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Deep Clean", "interval": 30, "tier": 3, "tierOrder": 10}, {"id": 113, "description": "Wipe Washroom 1 mirrors", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 60}, {"id": 114, "description": "Wipe Washroom 1 cabinet fronts and handles", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 40}, {"id": 115, "description": "Clean inside Washroom 1 cabinets and drawers", "minTime": 30, "maxTime": 45, "frequency": "Quarterly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Arranging", "interval": 91, "tier": 3, "tierOrder": 10}, {"id": 116, "description": "Wipe Washroom 1 walls and light switches", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 40}, {"id": 117, "description": "Wipe Washroom 1 baseboards", "minTime": 10, "maxTime": 15, "frequency": "Semi Monthly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Wiping", "interval": 15, "tier": 2, "tierOrder": 20}, {"id": 118, "description": "Wipe Washroom 1 door and door frame", "minTime": 5, "maxTime": 10, "frequency": "Monthly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Wiping", "interval": 30, "tier": 2, "tierOrder": 20}, {"id": 119, "description": "Wipe Washroom 1 window and frame", "minTime": 10, "maxTime": 15, "frequency": "I in 2 Month", "zone": "Washroom 1", "floor": "Upstairs", "category": "Wiping", "interval": 60, "tier": 2, "tierOrder": 20}, {"id": 120, "description": "Restock Washroom 1 supplies (soap, toilet paper, towels)", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Washroom 1", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 50}, {"id": 121, "description": "Vacuum/Sweep Washroom 2 floor", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Vacuuming", "interval": 7, "tier": 1, "tierOrder": 30}, {"id": 122, "description": "Mop Washroom 2 floor", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Mopping", "interval": 7, "tier": 1, "tierOrder": 40}, {"id": 123, "description": "Scrub Washroom 2 toilet (bowl, seat, base, tank)", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Scrubbing", "interval": 7, "tier": 1, "tierOrder": 60}, {"id": 124, "description": "Wipe Washroom 2 double sink - both basins, faucets, countertop", "minTime": 10, "maxTime": 15, "frequency": "Weekly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 60}, {"id": 125, "description": "Scrub Washroom 2 tub inside and outside", "minTime": 20, "maxTime": 30, "frequency": "Weekly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Scrubbing", "interval": 7, "tier": 1, "tierOrder": 70}, {"id": 126, "description": "Deep clean Washroom 2 tub grout and caulking", "minTime": 20, "maxTime": 30, "frequency": "Monthly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Deep Clean", "interval": 30, "tier": 3, "tierOrder": 10}, {"id": 127, "description": "Wipe Washroom 2 mirrors", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 1, "tierOrder": 60}, {"id": 128, "description": "Wipe Washroom 2 cabinet fronts and handles", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 40}, {"id": 129, "description": "Clean inside Washroom 2 cabinets and drawers", "minTime": 30, "maxTime": 45, "frequency": "Quarterly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Arranging", "interval": 91, "tier": 3, "tierOrder": 10}, {"id": 130, "description": "Wipe Washroom 2 walls and light switches", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 40}, {"id": 131, "description": "Wipe Washroom 2 baseboards", "minTime": 10, "maxTime": 15, "frequency": "Semi Monthly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Wiping", "interval": 15, "tier": 2, "tierOrder": 20}, {"id": 132, "description": "Wipe Washroom 2 door and door frame", "minTime": 5, "maxTime": 10, "frequency": "Monthly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Wiping", "interval": 30, "tier": 2, "tierOrder": 20}, {"id": 133, "description": "Wipe Washroom 2 window and frame", "minTime": 10, "maxTime": 15, "frequency": "I in 2 Month", "zone": "Washroom 2", "floor": "Upstairs", "category": "Wiping", "interval": 60, "tier": 2, "tierOrder": 20}, {"id": 134, "description": "Restock Washroom 2 supplies (soap, toilet paper, towels)", "minTime": 5, "maxTime": 10, "frequency": "Weekly", "zone": "Washroom 2", "floor": "Upstairs", "category": "Wiping", "interval": 7, "tier": 2, "tierOrder": 50}];
-const COLORS=['#2d6a4f','#1d3557','#e76f51','#9b5de5','#0077b6','#d62828','#f4a261','#2ec4b6'];
+const API = 'https://script.google.com/macros/s/AKfycbxakos7FeSxDJZPFP4jvtoNkBMKxHud60OYuztd9VtX2b9heKIyOeczOQA_6GCdUxL1_A/exec';
+const CAT_ORDER = ["Dusting", "Vacuuming", "Mopping", "Wiping", "Scrubbing", "Arranging", "Deep Clean", "Polishing"];
+const COLORS = ['#2d6a4f','#1d3557','#e76f51','#9b5de5','#0077b6','#d62828','#f4a261','#2ec4b6'];
 
-let S={users:[],history:[],currentUser:null,
+let S = {
+  users:[], history:[], tasks:[], currentUser:null,
   sess:{tasks:[],limit:0,filt:'All',done:[],times:{},timers:{}},
-  pending:null,selTime:0,selFloor:'All',
-  atimer:{id:null,start:null,iv:null}};
+  pending:null, selTime:0, selFloor:'All',
+  atimer:{id:null,start:null,iv:null},
+  editingTaskId:null, tasksLoaded:false
+};
 
-function save(){try{localStorage.setItem('ch5',JSON.stringify({users:S.users,currentUser:S.currentUser}))}catch(e){}}
-function loadL(){try{const d=localStorage.getItem('ch5');if(d){const p=JSON.parse(d);S.users=p.users||[];S.currentUser=p.currentUser||null;}}catch(e){}}
+function save(){ try{localStorage.setItem('ch6',JSON.stringify({users:S.users,currentUser:S.currentUser}))}catch(e){}}
+function loadL(){ try{const d=localStorage.getItem('ch6');if(d){const p=JSON.parse(d);S.users=p.users||[];S.currentUser=p.currentUser||null;}}catch(e){}}
 
+// ── SYNC ───────────────────────────────────────────────────────────
 function setSync(status,msg){
   const dot=document.getElementById('sdot'),txt=document.getElementById('smsg');
   if(!dot)return;
@@ -261,18 +421,35 @@ function setSync(status,msg){
   if(txt)txt.textContent=msg;
 }
 
+async function loadTasks(){
+  setSync('syncing','Loading tasks from Google Sheets…');
+  try{
+    const r=await fetch(API+'?action=getTasks');
+    const d=await r.json();
+    if(d.tasks&&d.tasks.length){
+      S.tasks=d.tasks;
+      S.tasksLoaded=true;
+      document.getElementById('start-btn').disabled=false;
+      document.getElementById('st-total').textContent=S.tasks.length;
+      setSync('ok',`${S.tasks.length} tasks loaded`);
+      renderHome();
+    }
+  }catch(e){setSync('error','Failed to load — check connection');}
+}
+
 async function syncH(){
-  setSync('syncing','Syncing with Google Sheets…');
   try{
     const r=await fetch(API+'?action=getHistory');
     const d=await r.json();
     if(d.history){
-      S.history=d.history.map(h=>{return{taskId:parseInt(h.taskId)||h.taskId,userId:String(h.userId),
+      S.history=d.history.map(h=>{return{
+        taskId:parseInt(h.taskId)||h.taskId,userId:String(h.userId),
         userName:h.userName,userColor:h.userColor,timestamp:parseInt(h.timestamp),
-        actualTime:parseInt(h.actualTime)||0,description:h.description,zone:h.zone,
-        floor:h.floor,frequency:h.frequency,category:h.category||'',tier:parseInt(h.tier)||2};});
-      setSync('ok','Synced · '+new Date().toLocaleTimeString());
+        actualTime:parseInt(h.actualTime)||0,description:h.description,
+        zone:h.zone,floor:h.floor,frequency:h.frequency,category:h.category||'',tier:parseInt(h.tier)||2
+      };});
       renderHome();
+      setSync('ok','Synced · '+new Date().toLocaleTimeString());
     }
   }catch(e){setSync('error','Sync failed — offline mode');}
 }
@@ -280,29 +457,39 @@ async function syncH(){
 async function pushE(e){try{await fetch(API,{method:'POST',body:JSON.stringify({action:'logTask',...e}),headers:{'Content-Type':'application/json'}});}catch(e){}}
 async function pushU(u){try{await fetch(API,{method:'POST',body:JSON.stringify({action:'saveUser',...u}),headers:{'Content-Type':'application/json'}});}catch(e){}}
 
+async function pushUpdateTask(data){
+  try{
+    const r=await fetch(API,{method:'POST',body:JSON.stringify({action:'updateTask',...data}),headers:{'Content-Type':'application/json'}});
+    return await r.json();
+  }catch(e){return{error:'Network error'};}
+}
+
+async function pushAddTask(data){
+  try{
+    const r=await fetch(API,{method:'POST',body:JSON.stringify({action:'addTask',...data}),headers:{'Content-Type':'application/json'}});
+    return await r.json();
+  }catch(e){return{error:'Network error'};}
+}
+
+// ── SCREENS ────────────────────────────────────────────────────────
 function go(id){
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
   document.getElementById(id).classList.add('on');
   if(id==='s-welcome')renderUsers();
   if(id==='s-home'){renderHome();syncH();}
   if(id==='s-history')renderHistory();
-  if(id==='s-insights')showInsights();
+  if(id==='s-insights')renderInsights();
+  if(id==='s-manage')renderManage();
 }
 
+// ── USERS ──────────────────────────────────────────────────────────
 function renderUsers(){
   const el=document.getElementById('user-list');
   if(!S.users.length){el.innerHTML='<div class="empty"><div class="ico">👤</div><p>Add yourself to get started</p></div>';return;}
   el.innerHTML=S.users.map(u=>`<button class="ubtn" onclick="pickU('${u.id}')"><div class="uav" style="background:${u.color}">${u.name[0].toUpperCase()}</div><div><div class="unm">${u.name}</div><div class="urol">${lastStr(u.id)}</div></div></button>`).join('');
 }
-
-function lastStr(uid){
-  const e=S.history.filter(h=>h.userId===uid).sort((a,b)=>b.timestamp-a.timestamp)[0];
-  if(!e)return'Never cleaned yet';
-  const d=Math.floor((Date.now()-e.timestamp)/86400000);
-  return d===0?'Cleaned today':d===1?'Cleaned yesterday':`Cleaned ${d} days ago`;
-}
-
-function pickU(uid){S.currentUser=S.users.find(u=>u.id===uid);save();go('s-home');}
+function lastStr(uid){const e=S.history.filter(h=>h.userId===uid).sort((a,b)=>b.timestamp-a.timestamp)[0];if(!e)return'Never cleaned yet';const d=Math.floor((Date.now()-e.timestamp)/86400000);return d===0?'Cleaned today':d===1?'Cleaned yesterday':`Cleaned ${d} days ago`;}
+function pickU(uid){S.currentUser=S.users.find(u=>u.id===uid);save();go('s-home');loadTasks();syncH();}
 
 const cp=document.getElementById('copts');
 COLORS.forEach((c,i)=>{const d=document.createElement('div');d.className='copt'+(i===0?' on':'');d.style.background=c;d.onclick=()=>{document.querySelectorAll('.copt').forEach(x=>x.classList.remove('on'));d.classList.add('on')};cp.appendChild(d);});
@@ -316,84 +503,52 @@ async function addUser(){
   await pushU(user);go('s-welcome');
 }
 
+// ── HOME ───────────────────────────────────────────────────────────
 function renderHome(){
   if(!S.currentUser)return;
   document.getElementById('hname').textContent=`Hi, ${S.currentUser.name} 👋`;
   let o=0,d=0,w=0;const wa=Date.now()-7*86400000;
-  TASKS.forEach(t=>{const u=urg(t);if(u==='urgent')o++;if(u==='due')d++;});
+  S.tasks.forEach(t=>{const u=urg(t);if(u==='urgent')o++;if(u==='due')d++;});
   w=S.history.filter(h=>h.timestamp>wa).length;
   document.getElementById('st-o').textContent=o;
   document.getElementById('st-d').textContent=d;
   document.getElementById('st-w').textContent=w;
+  document.getElementById('st-total').textContent=S.tasks.length||'—';
 }
 
+// ── URGENCY ────────────────────────────────────────────────────────
 function lastDone(id){const e=S.history.filter(h=>h.taskId===id).sort((a,b)=>b.timestamp-a.timestamp)[0];return e?e.timestamp:null;}
 function urg(task){const l=lastDone(task.id),iv=task.interval*86400000;if(!l)return'urgent';const el=Date.now()-l;if(el>=iv)return'urgent';if(el>=iv*.8)return'due';return'ok';}
 function daysO(task){const l=lastDone(task.id);if(!l)return task.interval;return(Date.now()-l)/86400000-task.interval;}
+function getMyAvg(id){if(!S.currentUser)return null;const e=S.history.filter(h=>h.taskId===id&&h.userId===S.currentUser.id&&h.actualTime>0);if(!e.length)return null;return Math.round(e.reduce((s,h)=>s+h.actualTime,0)/e.length);}
+function getAllAvgs(id){const u={};S.history.filter(h=>h.taskId===id&&h.actualTime>0).forEach(h=>{if(!u[h.userName])u[h.userName]={total:0,count:0,color:h.userColor};u[h.userName].total+=h.actualTime;u[h.userName].count++;});return Object.entries(u).map(([n,d])=>{return{name:n,avg:Math.round(d.total/d.count),color:d.color}});}
 
-function selT(mins,el){
-  S.selTime=mins;
-  document.querySelectorAll('.topt').forEach(e=>e.classList.remove('on'));
-  if(el)el.classList.add('on');
-  const btn=document.getElementById('build-btn');
-  if(mins>0){btn.disabled=false;btn.textContent=`Build My ${mins<60?mins+' min':(mins/60)+' hr'} Task List →`;}
-  else{btn.disabled=true;btn.textContent='Build My Task List →';}
-}
+// ── TIME / FLOOR ───────────────────────────────────────────────────
+function selT(mins,el){S.selTime=mins;document.querySelectorAll('.topt').forEach(e=>e.classList.remove('on'));if(el)el.classList.add('on');const btn=document.getElementById('build-btn');if(mins>0){btn.disabled=false;btn.textContent=`Build My ${mins<60?mins+' min':(mins/60)+' hr'} Task List →`;}else{btn.disabled=true;btn.textContent='Build My Task List →';}}
+function selF(floor,el){S.selFloor=floor;document.querySelectorAll('.fopt').forEach(e=>e.classList.remove('on'));el.classList.add('on');const notes={'All':'Downstairs T1 first, then Upstairs','Downstairs':'Focusing on Downstairs only','Upstairs':'Focusing on Upstairs only'};document.getElementById('fnote').textContent=notes[floor];}
 
-function selF(floor,el){
-  S.selFloor=floor;
-  document.querySelectorAll('.fopt').forEach(e=>e.classList.remove('on'));el.classList.add('on');
-  const notes={'All':'Downstairs T1 prioritised first, then Upstairs','Downstairs':'Focusing on Downstairs only','Upstairs':'Focusing on Upstairs only'};
-  document.getElementById('fnote').textContent=notes[floor];
-}
-
+// ── SESSION ────────────────────────────────────────────────────────
 function startSess(){
+  if(!S.tasks.length){alert('Tasks still loading — please wait');return;}
   const limit=S.selTime,floor=S.selFloor;
-  let pool=TASKS.filter(t=>floor==='All'?true:t.floor===floor);
+  let pool=S.tasks.filter(t=>floor==='All'?true:t.floor===floor);
   const fp=t=>(floor==='All'&&t.floor==='Upstairs')?1:0;
   const up=t=>{const u=urg(t);return u==='urgent'?0:u==='due'?1:2;};
   const co=t=>{const i=CAT_ORDER.indexOf(t.category);return i<0?99:i;};
-  pool.sort((a,b)=>{
-    if(a.tier!==b.tier)return a.tier-b.tier;
-    if(fp(a)!==fp(b))return fp(a)-fp(b);
-    if(up(a)!==up(b))return up(a)-up(b);
-    if(co(a)!==co(b))return co(a)-co(b);
-    return daysO(b)-daysO(a);
-  });
+  pool.sort((a,b)=>{if(a.tier!==b.tier)return a.tier-b.tier;if(fp(a)!==fp(b))return fp(a)-fp(b);if(up(a)!==up(b))return up(a)-up(b);if(co(a)!==co(b))return co(a)-co(b);return daysO(b)-daysO(a);});
   let total=0;const sel=[];
   for(const t of pool){const avg=(t.minTime+t.maxTime)/2;if(total+avg<=limit){sel.push(t);total+=avg;}}
   S.sess={tasks:sel,limit,filt:'All',done:[],times:{},timers:{}};
   renderSess();go('s-session');
 }
 
-
-function getMyAvg(taskId){
-  if(!S.currentUser)return null;
-  const entries = S.history.filter(h=>h.taskId===taskId && h.userId===S.currentUser.id && h.actualTime>0);
-  if(!entries.length)return null;
-  return Math.round(entries.reduce((sum,h)=>sum+h.actualTime,0)/entries.length);
-}
-
-function getAllUsersAvg(taskId){
-  const users = {};
-  S.history.filter(h=>h.taskId===taskId && h.actualTime>0).forEach(h=>{
-    if(!users[h.userName])users[h.userName]={total:0,count:0,color:h.userColor};
-    users[h.userName].total+=h.actualTime;
-    users[h.userName].count++;
-  });
-  return Object.entries(users).map(([name,d])=>({name,avg:Math.round(d.total/d.count),color:d.color}));
-}
-
 function fmtT(secs){const m=Math.floor(secs/60),s=secs%60;return`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
 
 function startTimer(id){
-  if(S.atimer.iv){clearInterval(S.atimer.iv);}
+  if(S.atimer.iv)clearInterval(S.atimer.iv);
   S.atimer={id,start:Date.now(),iv:null};
   S.sess.timers[id]={start:Date.now(),elapsed:0,running:true};
-  S.atimer.iv=setInterval(()=>{
-    const el2=document.getElementById('tmr-'+id);
-    if(el2){el2.textContent=fmtT(Math.floor((Date.now()-S.atimer.start)/1000));el2.classList.add('run');}
-  },1000);
+  S.atimer.iv=setInterval(()=>{const el=document.getElementById('tmr-'+id);if(el){el.textContent=fmtT(Math.floor((Date.now()-S.atimer.start)/1000));el.classList.add('run');}},1000);
   renderSess();
 }
 
@@ -404,7 +559,6 @@ function stopTimer(id){
   S.atimer={id:null,start:null,iv:null};
   openModal(id,elapsed);
 }
-
 
 function abortTimer(id){
   if(S.atimer.iv){clearInterval(S.atimer.iv);S.atimer.iv=null;}
@@ -428,13 +582,9 @@ function renderSess(){
   [1,2,3].forEach(tier=>{
     const tt=vis.filter(t=>t.tier===tier&&!done.includes(t.id));
     if(!tt.length)return;
-    const tl2={1:'🟢 Tier 1 — Must Do First',2:'🟡 Tier 2 — When Time Allows',3:'⚪ Tier 3 — Deep Cleans'};
-    html+=`<div class="slbl2">${tl2[tier]}</div>`;
+    html+=`<div class="slbl2">${{1:'🟢 Tier 1 — Must Do First',2:'🟡 Tier 2 — When Time Allows',3:'⚪ Tier 3 — Deep Cleans'}[tier]}</div>`;
     const cats=[...new Set(tt.map(t=>t.category))].sort((a,b)=>{const ai=CAT_ORDER.indexOf(a),bi=CAT_ORDER.indexOf(b);return(ai<0?99:ai)-(bi<0?99:bi);});
-    cats.forEach(cat=>{
-      html+=`<div class="catlbl">── ${cat}</div>`;
-      html+=tt.filter(t=>t.category===cat).map(t=>tCard(t,false,timers[t.id])).join('');
-    });
+    cats.forEach(cat=>{html+=`<div class="catlbl">── ${cat}</div>`;html+=tt.filter(t=>t.category===cat).map(t=>tCard(t,false,timers[t.id])).join('');});
   });
   const dl=vis.filter(t=>done.includes(t.id));
   if(dl.length){html+='<div class="slbl2">✅ Completed</div>';html+=dl.map(t=>tCard(t,true)).join('');}
@@ -452,55 +602,37 @@ function tCard(task,isDone,timer){
   else if(u==='due'&&!isDone)utag='<span class="tag due">Due soon</span>';
   const isRun=S.atimer.id===task.id;
   const elapsed=timer?timer.elapsed:0;
+  const myAvg=getMyAvg(task.id);
+  const estTxt=myAvg?`Your avg: ${myAvg}m`:`Est. ${task.minTime}–${task.maxTime}m`;
   let timerHtml='';
   if(!isDone){
-    // Get personal avg time for this user
-    const myAvg = getMyAvg(task.id);
-    const estDisplay = myAvg ? `Your avg: ${myAvg} min` : `Est. ${task.minTime}–${task.maxTime} min`;
     if(isRun){
       timerHtml=`<div class="ttimer"><div class="tdisp run" id="tmr-${task.id}">00:00</div><button class="tbstop" onclick="event.stopPropagation();stopTimer(${task.id})">⏹ Stop & Done</button><button class="tbabort" onclick="event.stopPropagation();abortTimer(${task.id})">✕ Abort</button></div>`;
     }else{
-      timerHtml=`<div class="ttimer"><div class="tdisp" id="tmr-${task.id}">${elapsed?elapsed+'m':estDisplay}</div><button class="tbstart" onclick="event.stopPropagation();startTimer(${task.id})">▶ Start</button><button class="tbdone2" onclick="event.stopPropagation();openModal(${task.id},myAvg||${Math.round((task.minTime+task.maxTime)/2)})">✓ Done</button></div>`;
+      timerHtml=`<div class="ttimer"><div class="tdisp" id="tmr-${task.id}">${elapsed?elapsed+'m':estTxt}</div><button class="tbstart" onclick="event.stopPropagation();startTimer(${task.id})">▶ Start</button><button class="tbdone2" onclick="event.stopPropagation();openModal(${task.id},${myAvg||Math.round((task.minTime+task.maxTime)/2)})">✓ Done</button><button class="tbswap" onclick="event.stopPropagation();openSwap(${task.id})">⇄ Swap</button></div>`;
     }
   }
-  return`<div class="tcard ${isDone?'done':tc} ${!isDone&&u==='urgent'?'ovd':''}"><div class="tcardtop"><div class="tck">${isDone?'✓':''}</div><div class="tbody"><div class="tdesc">${task.description.trim()}</div><div class="tmeta"><span class="tag ${tc}">${tl}</span><span class="tag cat">${task.category}</span><span class="tag zone">${task.zone}</span>${utag}</div><div class="ttime">${ls} · Est. ${task.minTime}–${task.maxTime} min</div></div></div>${timerHtml}</div>`;
+  return`<div class="tcard ${isDone?'done':tc} ${!isDone&&u==='urgent'?'ovd':''}"><div class="tcardtop"><div class="tck">${isDone?'✓':''}</div><div class="tbody"><div class="tdesc">${task.description.trim()}</div><div class="tmeta"><span class="tag ${tc}">${tl}</span><span class="tag cat">${task.category}</span><span class="tag zone">${task.zone}</span>${utag}</div><div class="ttime">${ls}</div></div></div>${timerHtml}</div>`;
 }
 
 function setFilt(z){S.sess.filt=z;renderSess();}
-
-function openModal(id,def){
-  const task=TASKS.find(t=>t.id===id);
-  S.pending=id;
-  document.getElementById('m-task').textContent=task.description.trim();
-  document.getElementById('m-mins').value=def||Math.round((task.minTime+task.maxTime)/2);
-  document.getElementById('modal').classList.add('on');
-  setTimeout(()=>document.getElementById('m-mins').select(),100);
-}
-
-function closeModal(){document.getElementById('modal').classList.remove('on');S.pending=null;}
+function openModal(id,def){const task=S.tasks.find(t=>t.id===id);S.pending=id;document.getElementById('m-task').textContent=task.description.trim();document.getElementById('m-mins').value=def||Math.round((task.minTime+task.maxTime)/2);document.getElementById('modal-done').classList.add('on');setTimeout(()=>document.getElementById('m-mins').select(),100);}
+function closeModal(id){document.getElementById(id).classList.remove('on');S.pending=null;S.editingTaskId=null;}
 
 async function confirmDone(){
   const id=S.pending;if(!id)return;
   const mins=parseInt(document.getElementById('m-mins').value)||0;
-  const task=TASKS.find(t=>t.id===id);
-  const entry={taskId:id,userId:S.currentUser.id,userName:S.currentUser.name,userColor:S.currentUser.color,
-    timestamp:Date.now(),actualTime:mins,description:task.description.trim(),zone:task.zone,
-    floor:task.floor,frequency:task.frequency,category:task.category,tier:task.tier};
+  const task=S.tasks.find(t=>t.id===id);
+  const entry={taskId:id,userId:S.currentUser.id,userName:S.currentUser.name,userColor:S.currentUser.color,timestamp:Date.now(),actualTime:mins,description:task.description.trim(),zone:task.zone,floor:task.floor,frequency:task.frequency,category:task.category,tier:task.tier};
   S.history.push(entry);S.sess.done.push(id);S.sess.times[id]=mins;
-  closeModal();renderSess();
+  closeModal('modal-done');renderSess();
   await pushE(entry);
 }
 
-function leaveSess(){
-  if(S.atimer.iv)clearInterval(S.atimer.iv);
-  if(S.sess.done.length>0){if(!confirm('Leave? Completed tasks are saved.'))return;}
-  go('s-home');
-}
-
+function leaveSess(){if(S.atimer.iv)clearInterval(S.atimer.iv);go('s-home');}
 function finishSess(){
   if(S.atimer.iv)clearInterval(S.atimer.iv);
-  const done=S.sess.done.length,skip=S.sess.tasks.length-done;
-  const time=Object.values(S.sess.times).reduce((a,b)=>a+b,0);
+  const done=S.sess.done.length,skip=S.sess.tasks.length-done,time=Object.values(S.sess.times).reduce((a,b)=>a+b,0);
   document.getElementById('sd').textContent=done;document.getElementById('sm').textContent=time;document.getElementById('sk').textContent=skip;
   const great=done>=S.sess.tasks.length*.8;
   document.getElementById('se').textContent=done===0?'📋':great?'🌟':'👍';
@@ -509,80 +641,102 @@ function finishSess(){
   go('s-summary');
 }
 
-
-function showInsights(){
-  go('s-insights');
-  const el=document.getElementById('insights-list');
-  // Find tasks that have been done by multiple users
-  const taskIds=[...new Set(S.history.map(h=>h.taskId))];
-  if(!taskIds.length){el.innerHTML='<div class="empty"><div class="ico">📊</div><p>No data yet — complete some tasks first</p></div>';return;}
-  
-  let html='';
-  let flagged=[];
-  let normal=[];
-  
-  taskIds.forEach(tid=>{
-    const task=TASKS.find(t=>t.id===tid);
-    if(!task)return;
-    const avgs=getAllUsersAvg(tid);
-    if(!avgs.length)return;
-    const myAvg=getMyAvg(tid);
-    const others=avgs.filter(a=>a.name!==S.currentUser.name);
-    
-    // Check for big gaps
-    let isFlagged=false;
-    others.forEach(o=>{
-      if(myAvg&&o.avg){
-        const diff=Math.abs(myAvg-o.avg);
-        const pct=diff/Math.min(myAvg,o.avg);
-        if(pct>0.5)isFlagged=true; // flag if >50% difference
-      }
-    });
-    
-    const row={task,avgs,myAvg,isFlagged};
-    if(isFlagged)flagged.push(row);
-    else normal.push(row);
-  });
-  
-  if(flagged.length){
-    html+='<div class="slbl2" style="color:var(--or)">⚠ Large Time Gaps — Worth Discussing</div>';
-    flagged.forEach(r=>{
-      html+=insightRow(r);
-    });
-  }
-  
-  if(normal.length){
-    html+='<div class="slbl2" style="margin-top:16px">✓ On Track</div>';
-    normal.forEach(r=>{
-      html+=insightRow(r);
-    });
-  }
-  
-  if(!flagged.length&&!normal.length){
-    html='<div class="empty"><div class="ico">📊</div><p>Complete tasks with multiple users to see comparisons</p></div>';
-  }
-  
-  el.innerHTML=html;
+// ── MANAGE TASKS ───────────────────────────────────────────────────
+function renderManage(){
+  const filters=document.getElementById('manage-filters');
+  const zones=['All',...new Set(S.tasks.map(t=>t.zone))].sort();
+  filters.innerHTML=zones.map((z,i)=>`<div class="fchp ${i===0?'on':''}" onclick="filterManage('${z}',this)">${z}</div>`).join('');
+  filterManage('All');
 }
 
-function insightRow(r){
-  const {task,avgs,myAvg,isFlagged}=r;
-  let avgHtml=avgs.map(a=>`<span style="background:${a.color};color:white;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;margin-right:4px">${a.name}: ${a.avg}m</span>`).join('');
-  return`<div style="padding:12px 0;border-bottom:1px solid var(--grl)">
-    <div style="font-size:14px;font-weight:600;margin-bottom:6px;line-height:1.3">${task.description.trim()}</div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-      ${avgHtml}
-      ${isFlagged?'<span style="background:var(--op);color:var(--or);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700">⚠ Big gap</span>':''}
-    </div>
-    <div style="font-size:11px;color:var(--ts);margin-top:4px">Est: ${task.minTime}–${task.maxTime} min · ${task.zone}</div>
-  </div>`;
+function filterManage(zone,el){
+  if(el){document.querySelectorAll('#manage-filters .fchp').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
+  const tasks=zone==='All'?S.tasks:S.tasks.filter(t=>t.zone===zone);
+  document.getElementById('manage-list').innerHTML=tasks.map(t=>`
+    <div style="background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:8px;box-shadow:var(--sh);display:flex;align-items:flex-start;gap:10px">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:14px;font-weight:600;line-height:1.35;margin-bottom:4px">${t.description.trim()}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span class="tag cat">${t.category}</span>
+          <span class="tag zone">${t.zone}</span>
+          <span class="tag ${['t1','t2','t3'][t.tier-1]}">${['T1','T2','T3'][t.tier-1]}</span>
+          <span class="tag zone">${t.frequency}</span>
+        </div>
+      </div>
+      <button class="tedit" onclick="openEditTask(${t.id})">✏️</button>
+    </div>`).join('');
 }
 
+function openEditTask(id){
+  const task=S.tasks.find(t=>t.id===id);
+  if(!task)return;
+  S.editingTaskId=id;
+  document.getElementById('et-desc').value=task.description;
+  document.getElementById('et-cat').value=task.category;
+  document.getElementById('et-min').value=task.minTime;
+  document.getElementById('et-max').value=task.maxTime;
+  document.getElementById('et-freq').value=task.frequency;
+  document.getElementById('et-tier').value=task.tier;
+  document.getElementById('modal-edit').classList.add('on');
+}
+
+async function saveEditTask(){
+  const id=S.editingTaskId;if(!id)return;
+  const btn=document.getElementById('et-save-btn');
+  btn.textContent='Saving…';btn.disabled=true;
+  const data={
+    id,
+    description:document.getElementById('et-desc').value.trim(),
+    category:document.getElementById('et-cat').value,
+    minTime:parseInt(document.getElementById('et-min').value),
+    maxTime:parseInt(document.getElementById('et-max').value),
+    frequency:document.getElementById('et-freq').value,
+    tier:parseInt(document.getElementById('et-tier').value),
+  };
+  // Update local
+  const task=S.tasks.find(t=>t.id===id);
+  if(task){Object.assign(task,data);}
+  closeModal('modal-edit');
+  // Push to sheets
+  const result=await pushUpdateTask(data);
+  btn.textContent='Save to Sheets';btn.disabled=false;
+  if(result.success){renderManage();}
+  else alert('Saved locally but sheet update failed: '+(result.error||'unknown error'));
+}
+
+async function saveNewTask(){
+  const desc=document.getElementById('at-desc').value.trim();
+  if(!desc){alert('Please enter a description');return;}
+  const btn=document.getElementById('at-save-btn');
+  btn.textContent='Saving…';btn.disabled=true;
+  const data={
+    description:desc,
+    category:document.getElementById('at-cat').value,
+    zone:document.getElementById('at-zone').value,
+    floor:document.getElementById('at-floor').value,
+    frequency:document.getElementById('at-freq').value,
+    minTime:parseInt(document.getElementById('at-min').value)||10,
+    maxTime:parseInt(document.getElementById('at-max').value)||20,
+    tier:parseInt(document.getElementById('at-tier').value)||2,
+  };
+  const result=await pushAddTask(data);
+  btn.textContent='Save Task to Google Sheets';btn.disabled=false;
+  if(result.success){
+    // Reload tasks from sheets
+    await loadTasks();
+    // Clear form
+    document.getElementById('at-desc').value='';
+    go('s-manage');
+  }else{
+    alert('Failed to save: '+(result.error||'unknown error'));
+  }
+}
+
+// ── HISTORY ────────────────────────────────────────────────────────
 function renderHistory(){
   syncH().then(()=>renderHL('all'));
   const users=[...new Set(S.history.map(h=>h.userId))].map(uid=>S.users.find(u=>u.id===uid)).filter(Boolean);
-  document.getElementById('hfilt').innerHTML=`<div class="fchp on" onclick="renderHL('all',this)">All</div>`+
-    users.map(u=>`<div class="fchp" onclick="renderHL('${u.id}',this)" style="border-color:${u.color}">${u.name}</div>`).join('');
+  document.getElementById('hfilt').innerHTML=`<div class="fchp on" onclick="renderHL('all',this)">All</div>`+users.map(u=>`<div class="fchp" onclick="renderHL('${u.id}',this)" style="border-color:${u.color}">${u.name}</div>`).join('');
   renderHL('all');
 }
 
@@ -591,24 +745,196 @@ function renderHL(uid,el){
   const entries=(uid==='all'?S.history:S.history.filter(h=>h.userId===uid)).sort((a,b)=>b.timestamp-a.timestamp);
   const el2=document.getElementById('hlist');
   if(!entries.length){el2.innerHTML='<div class="empty"><div class="ico">📋</div><p>No history yet</p></div>';return;}
-  el2.innerHTML=entries.map(h=>{
-    const d=new Date(h.timestamp);
-    const ds=d.toLocaleDateString('en-CA',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
-    const tc=['t1','t2','t3'][(parseInt(h.tier)||2)-1];
-    return`<div class="hitem"><div class="htop"><div class="hdesc">${h.description}</div><div class="hwho" style="background:${h.userColor}">${h.userName}</div></div><div class="hmeta"><span class="hm tag ${tc}">T${h.tier||'?'}</span><span class="hm tag cat">${h.category||''}</span><span class="hm">📍 ${h.zone}</span><span class="hm">⏱ ${h.actualTime} min</span><span class="hm">🕐 ${ds}</span></div></div>`;
+  el2.innerHTML=entries.map(h=>{const d=new Date(h.timestamp);const ds=d.toLocaleDateString('en-CA',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});const tc=['t1','t2','t3'][(parseInt(h.tier)||2)-1];return`<div class="hitem"><div class="htop"><div class="hdesc">${h.description}</div><div class="hwho" style="background:${h.userColor}">${h.userName}</div></div><div class="hmeta"><span class="hm tag ${tc}">T${h.tier||'?'}</span><span class="hm tag cat">${h.category||''}</span><span class="hm">📍 ${h.zone}</span><span class="hm">⏱ ${h.actualTime} min</span><span class="hm">🕐 ${ds}</span></div></div>`;}).join('');
+}
+
+// ── INSIGHTS ───────────────────────────────────────────────────────
+function renderInsights(){
+  const el=document.getElementById('insights-list');
+  const taskIds=[...new Set(S.history.map(h=>h.taskId))];
+  if(!taskIds.length){el.innerHTML='<div class="empty"><div class="ico">📊</div><p>Complete some tasks first to see insights</p></div>';return;}
+  let flagged=[],normal=[];
+  taskIds.forEach(tid=>{
+    const task=S.tasks.find(t=>t.id===tid);if(!task)return;
+    const avgs=getAllAvgs(tid);if(!avgs.length)return;
+    const myAvg=getMyAvg(tid);
+    const others=avgs.filter(a=>a.name!==S.currentUser?.name);
+    let isFlagged=false;
+    others.forEach(o=>{if(myAvg&&o.avg){const diff=Math.abs(myAvg-o.avg);if(diff/Math.min(myAvg,o.avg)>0.5)isFlagged=true;}});
+    (isFlagged?flagged:normal).push({task,avgs,myAvg,isFlagged});
+  });
+  let html='';
+  if(flagged.length){html+='<div class="slbl2" style="color:var(--or)">⚠ Large Time Gaps — Worth Discussing</div>';flagged.forEach(r=>{html+=insightRow(r);});}
+  if(normal.length){html+='<div class="slbl2" style="margin-top:16px">✓ Similar Times</div>';normal.forEach(r=>{html+=insightRow(r);});}
+  if(!flagged.length&&!normal.length)html='<div class="empty"><div class="ico">📊</div><p>Both users need to log tasks for comparison</p></div>';
+  el.innerHTML=html;
+}
+
+function insightRow(r){
+  const{task,avgs,isFlagged}=r;
+  const avgHtml=avgs.map(a=>`<span style="background:${a.color};color:#fff;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;margin-right:4px">${a.name}: ${a.avg}m</span>`).join('');
+  return`<div style="padding:12px 0;border-bottom:1px solid var(--grl)"><div style="font-size:14px;font-weight:600;margin-bottom:6px;line-height:1.3">${task.description.trim()}</div><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${avgHtml}${isFlagged?'<span style="background:var(--op);color:var(--or);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700">⚠ Big gap</span>':''}</div><div style="font-size:11px;color:var(--ts);margin-top:4px">Est: ${task.minTime}–${task.maxTime} min · ${task.zone}</div></div>`;
+}
+
+
+// ── SWAP ───────────────────────────────────────────────────────────
+let swapState = {fromTaskId: null, toTaskId: null, tab: 'zone'};
+
+function openSwap(fromId) {
+  swapState.fromTaskId = fromId;
+  swapState.tab = 'zone';
+  const task = S.tasks.find(t => t.id === fromId);
+  document.getElementById('swap-title').textContent = '⇄ Swap Task';
+  document.getElementById('swap-sub').textContent = 'Replacing: ' + task.description.trim();
+  renderSwapList('zone');
+  document.getElementById('modal-swap').classList.add('on');
+}
+
+function swapTab(tab, el) {
+  swapState.tab = tab;
+  document.querySelectorAll('#modal-swap .fchp').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  renderSwapList(tab);
+}
+
+function isUpgrade(oldTask, newTask) {
+  // Upgrade = same zone, newTask is Tier 3 and oldTask is Tier 1
+  if (oldTask.zone !== newTask.zone) return false;
+  if (oldTask.tier === 1 && newTask.tier === 3) return true;
+  // Or same category, new one has "deep" in description
+  if (oldTask.category === newTask.category && newTask.description.toLowerCase().includes('deep')) return true;
+  return false;
+}
+
+function renderSwapList(tab) {
+  const fromTask = S.tasks.find(t => t.id === swapState.fromTaskId);
+  const sessionIds = new Set(S.sess.tasks.map(t => t.id));
+  
+  let candidates = S.tasks.filter(t => {
+    if (sessionIds.has(t.id)) return false; // not already in session
+    if (t.id === swapState.fromTaskId) return false;
+    if (tab === 'zone') return t.zone === fromTask.zone || t.floor === fromTask.floor;
+    return true;
+  });
+
+  // Sort: upgrades first, then by urgency, then by zone match
+  candidates.sort((a, b) => {
+    const aUp = isUpgrade(fromTask, a) ? 0 : 1;
+    const bUp = isUpgrade(fromTask, b) ? 0 : 1;
+    if (aUp !== bUp) return aUp - bUp;
+    // zone match first
+    const aZone = a.zone === fromTask.zone ? 0 : 1;
+    const bZone = b.zone === fromTask.zone ? 0 : 1;
+    if (aZone !== bZone) return aZone - bZone;
+    // then urgency
+    const uOrder = {urgent:0, due:1, ok:2};
+    return (uOrder[urg(a)]||2) - (uOrder[urg(b)]||2);
+  });
+
+  if (!candidates.length) {
+    document.getElementById('swap-list').innerHTML = '<div class="empty"><div class="ico">✨</div><p>No other tasks available in this filter</p></div>';
+    return;
+  }
+
+  document.getElementById('swap-list').innerHTML = candidates.map(t => {
+    const upgrade = isUpgrade(fromTask, t);
+    const u = urg(t);
+    const tc = ['t1','t2','t3'][t.tier-1];
+    let urgTag = '';
+    if (u === 'urgent') urgTag = '<span class="tag ovd">⚠ Overdue</span>';
+    else if (u === 'due') urgTag = '<span class="tag due">Due soon</span>';
+    return `<div class="swap-item ${upgrade ? 'upgrade' : ''}" onclick="selectSwap(${t.id})">
+      ${upgrade ? '<div style="font-size:11px;font-weight:800;color:var(--or);margin-bottom:4px">⬆ UPGRADE</div>' : ''}
+      <div class="swap-item-desc">${t.description.trim()}</div>
+      <div class="swap-item-meta">
+        <span class="tag ${tc}">${['T1','T2','T3'][t.tier-1]}</span>
+        <span class="tag cat">${t.category}</span>
+        <span class="tag zone">${t.zone}</span>
+        ${urgTag}
+        <span class="tag zone">Est. ${t.minTime}–${t.maxTime}m</span>
+      </div>
+    </div>`;
   }).join('');
 }
 
-loadL();renderUsers();
+function selectSwap(toId) {
+  swapState.toTaskId = toId;
+  const fromTask = S.tasks.find(t => t.id === swapState.fromTaskId);
+  const toTask = S.tasks.find(t => t.id === toId);
+  const upgrade = isUpgrade(fromTask, toTask);
+  document.getElementById('sconf-old').textContent = fromTask.description.trim();
+  document.getElementById('sconf-new').textContent = toTask.description.trim();
+  document.getElementById('sconf-type').textContent = upgrade ? '⬆ UPGRADING TO' : '✓ ADDING';
+  document.getElementById('sconf-title').textContent = upgrade ? '⬆ Upgrade Task' : '⇄ Swap Task';
+  closeModal('modal-swap');
+  document.getElementById('modal-swap-confirm').classList.add('on');
+}
+
+function confirmSwap() {
+  const fromId = swapState.fromTaskId;
+  const toId = swapState.toTaskId;
+  const fromTask = S.tasks.find(t => t.id === fromId);
+  const toTask = S.tasks.find(t => t.id === toId);
+  const upgrade = isUpgrade(fromTask, toTask);
+
+  // Log original as skipped with reason
+  const skipEntry = {
+    taskId: fromId, userId: S.currentUser.id, userName: S.currentUser.name,
+    userColor: S.currentUser.color, timestamp: Date.now(), actualTime: 0,
+    description: fromTask.description.trim() + (upgrade ? ' [Upgraded]' : ' [Swapped]'),
+    zone: fromTask.zone, floor: fromTask.floor, frequency: fromTask.frequency,
+    category: fromTask.category, tier: fromTask.tier
+  };
+  S.history.push(skipEntry);
+  pushE(skipEntry);
+
+  // Remove from task from session, add to task
+  S.sess.tasks = S.sess.tasks.filter(t => t.id !== fromId);
+  S.sess.tasks.push(toTask);
+
+  closeModal('modal-swap-confirm');
+  swapState = {fromTaskId: null, toTaskId: null, tab: 'zone'};
+  renderSess();
+}
+
+// ── INIT ───────────────────────────────────────────────────────────
+loadL();
+renderUsers();
+// Load tasks on startup if user already logged in
+if(S.currentUser){ loadTasks(); syncH(); }
 </script>
 
-<!-- INSIGHTS -->
-<div class="scr" id="s-insights">
-  <div class="hdr"><button class="hbk" onclick="go('s-home')">←</button><h1>Time Insights</h1></div>
-  <div class="cnt">
-    <div class="card">
-      <div class="ctit">Your avg vs others — flagged where gap is large</div>
-      <div id="insights-list"></div>
+<!-- SWAP MODAL -->
+<div class="moverlay" id="modal-swap">
+  <div class="modal" style="max-height:85vh;display:flex;flex-direction:column;padding-bottom:20px">
+    <div class="mhand"></div>
+    <div style="font-size:16px;font-weight:700;margin-bottom:4px" id="swap-title">Replace Task</div>
+    <div style="font-size:13px;color:var(--ts);margin-bottom:14px" id="swap-sub"></div>
+    <div class="fbar" style="margin-bottom:12px">
+      <div class="fchp on" id="swap-tab-zone" onclick="swapTab('zone',this)">Same Zone</div>
+      <div class="fchp" id="swap-tab-all" onclick="swapTab('all',this)">All Tasks</div>
+    </div>
+    <div id="swap-list" style="overflow-y:auto;flex:1"></div>
+    <button class="mbtn no" onclick="closeModal('modal-swap')" style="margin-top:12px;padding:14px;border-radius:12px;font-size:15px;font-weight:700;border:none;cursor:pointer;background:var(--grl);color:var(--tx)">Cancel</button>
+  </div>
+</div>
+
+<!-- SWAP CONFIRM MODAL -->
+<div class="moverlay" id="modal-swap-confirm">
+  <div class="modal">
+    <div class="mhand"></div>
+    <div style="font-size:16px;font-weight:700;margin-bottom:8px" id="sconf-title">Confirm Swap</div>
+    <div style="background:var(--op);border-radius:10px;padding:12px;margin-bottom:10px">
+      <div style="font-size:11px;font-weight:700;color:var(--or);margin-bottom:4px">REMOVING</div>
+      <div style="font-size:14px;font-weight:500" id="sconf-old"></div>
+    </div>
+    <div style="background:var(--gp);border-radius:10px;padding:12px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;color:var(--g);margin-bottom:4px" id="sconf-type">ADDING</div>
+      <div style="font-size:14px;font-weight:500" id="sconf-new"></div>
+    </div>
+    <div class="mbtns">
+      <button class="mbtn no" onclick="closeModal('modal-swap-confirm')">Cancel</button>
+      <button class="mbtn ok" onclick="confirmSwap()">Confirm Swap</button>
     </div>
   </div>
 </div>
