@@ -141,6 +141,7 @@ select.fi{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='
     <div class="wsub">Who's cleaning today?</div>
     <div id="user-list"></div>
     <button class="addbtn" onclick="go('s-adduser')"><span style="font-size:22px">＋</span> Add new person</button>
+    <button class="addbtn" onclick="go('s-users')" style="margin-top:6px"><span style="font-size:18px">⚙</span> Manage users</button>
     <div class="hint" style="margin-top:20px"><strong>📱 Save to home screen</strong>iPhone: Safari → Share → Add to Home Screen<br>Android: Chrome → ⋮ → Add to Home Screen</div>
   </div>
 </div>
@@ -154,6 +155,29 @@ select.fi{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='
       <div class="fg"><label class="fl">Pick a colour</label><div class="copts" id="copts"></div></div>
     </div>
     <button class="bbtn" onclick="addUser()">Save Person</button>
+  </div>
+</div>
+
+<!-- MANAGE USERS -->
+<div class="scr" id="s-users">
+  <div class="hdr">
+    <button class="hbk" onclick="go('s-welcome')">←</button><h1>Manage Users</h1>
+    <button onclick="go('s-adduser')" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer">＋ Add</button>
+  </div>
+  <div class="cnt" id="users-manage-list"></div>
+</div>
+
+<!-- RENAME USER MODAL -->
+<div class="moverlay" id="modal-rename">
+  <div class="modal">
+    <div class="mhand"></div>
+    <div style="font-size:16px;font-weight:700;margin-bottom:16px">Rename User</div>
+    <div class="fg"><label class="fl">Name</label><input class="fi" id="rename-input" placeholder="Enter name" maxlength="30"></div>
+    <div class="fg"><label class="fl">Colour</label><div class="copts" id="rename-copts"></div></div>
+    <div class="mbtns">
+      <button class="mbtn no" onclick="closeModal('modal-rename')">Cancel</button>
+      <button class="mbtn ok" onclick="saveRename()">Save</button>
+    </div>
   </div>
 </div>
 
@@ -173,7 +197,11 @@ select.fi{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='
       <div class="sbox ok"><div class="snum" id="st-w">—</div><div class="slbl">Done This Week</div></div>
       <div class="sbox ok"><div class="snum" id="st-total">—</div><div class="slbl">Total Tasks</div></div>
     </div>
-    <button class="bbtn" id="start-btn" onclick="go('s-time')" disabled>▶ Start Cleaning Session</button>
+    <div id="resume-banner" style="display:none;background:var(--green-pale,#d8f3dc);border:2px solid var(--gm);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;cursor:pointer" onclick="resumeSess()">
+    <div style="font-size:14px;font-weight:700;color:var(--g)">▶ Resume Active Session</div>
+    <div style="font-size:12px;color:var(--ts);margin-top:3px" id="resume-sub"></div>
+  </div>
+  <button class="bbtn" id="start-btn" onclick="go('s-time')" disabled>▶ Start New Session</button>
     <button class="bbtn sec" onclick="go('s-history')">📋 View History</button>
     <button class="bbtn sec" onclick="go('s-insights')">📊 Time Insights</button>
     <button class="bbtn sec" onclick="go('s-manage')">✏️ Manage Tasks</button>
@@ -222,6 +250,7 @@ select.fi{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='
     <div style="flex:1"><h1>Cleaning Session</h1><div class="hsub" id="slbl"></div></div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
       <button onclick="finishSess()" style="background:none;border:none;color:rgba(255,255,255,.85);font-size:13px;cursor:pointer;font-weight:700">✓ Finish</button>
+      <button onclick="openAddToSession()" style="background:none;border:none;color:rgba(255,255,255,.75);font-size:11px;cursor:pointer">＋ Add Task</button>
       <button onclick="leaveSess()" style="background:none;border:none;color:rgba(255,255,255,.6);font-size:11px;cursor:pointer">🏠 Home</button>
     </div>
   </div>
@@ -264,22 +293,7 @@ select.fi{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='
       </div>
       <div class="frow2">
         <div class="fg"><label class="fl">Zone</label>
-          <select class="fi" id="at-zone">
-            <optgroup label="Downstairs"><option>Living room</option>
-<option>Living Room</option>
-<option>Kid Living Room</option>
-<option>Dining Room</option>
-<option>Kitchen</option>
-<option>Foyer</option>
-<option>Downstairs Washroom</option></optgroup>
-            <optgroup label="Upstairs"><option>Upstairs Foyer</option>
-<option>Master Bedroom</option>
-<option>Master Ensuite</option>
-<option>Kid Bedroom</option>
-<option>Reese's Office</option>
-<option>Washroom 1</option>
-<option>Washroom 2</option></optgroup>
-          </select>
+          <select class="fi" id="at-zone"><option>Loading zones...</option></select>
         </div>
         <div class="fg"><label class="fl">Floor</label>
           <select class="fi" id="at-floor"><option>Downstairs</option><option>Upstairs</option></select>
@@ -373,6 +387,9 @@ select.fi{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='
     <div class="frow2">
       <div class="fg"><label class="fl">Min Time</label><input class="fi" type="number" id="et-min" min="1" max="300"></div>
       <div class="fg"><label class="fl">Max Time</label><input class="fi" type="number" id="et-max" min="1" max="300"></div>
+    </div>
+    <div class="fg"><label class="fl">Zone</label>
+      <select class="fi" id="et-zone"><option>Loading...</option></select>
     </div>
     <div class="fg"><label class="fl">Frequency</label>
       <select class="fi" id="et-freq"><option>Daily</option>
@@ -518,6 +535,7 @@ function go(id){
   if(id==='s-home'){renderHome();syncH();}
   if(id==='s-history')renderHistory();
   if(id==='s-insights')renderInsights();
+  if(id==='s-users')renderUsersManage();
   if(id==='s-manage')renderManage();
 }
 
@@ -574,7 +592,17 @@ async function renderUsers(){
   }
 }
 function lastStr(uid){const e=S.history.filter(h=>h.userId===uid).sort((a,b)=>b.timestamp-a.timestamp)[0];if(!e)return'Never cleaned yet';const d=Math.floor((Date.now()-e.timestamp)/86400000);return d===0?'Cleaned today':d===1?'Cleaned yesterday':`Cleaned ${d} days ago`;}
-function pickU(uid){S.currentUser=S.users.find(u=>u.id===uid);save();go('s-home');loadTasks();syncH();}
+function pickU(uid){
+  S.currentUser=S.users.find(u=>String(u.id)===String(uid));
+  if(!S.currentUser) S.currentUser=S.users.find(u=>u.id===uid);
+  save();
+  go('s-home');
+  loadTasks().then(function(){
+    populateZoneDropdown('at-zone');
+    checkResumeBanner();
+  });
+  syncH();
+}
 
 const cp=document.getElementById('copts');
 COLORS.forEach((c,i)=>{const d=document.createElement('div');d.className='copt'+(i===0?' on':'');d.style.background=c;d.onclick=()=>{document.querySelectorAll('.copt').forEach(x=>x.classList.remove('on'));d.classList.add('on')};cp.appendChild(d);});
@@ -592,6 +620,11 @@ async function addUser(){
 function renderHome(){
   if(!S.currentUser)return;
   document.getElementById('hname').textContent=`Hi, ${S.currentUser.name} 👋`;
+  checkResumeBanner();
+  // Populate zone dropdowns once tasks loaded
+  if(S.tasks.length){
+    populateZoneDropdown('at-zone');
+  }
   let o=0,d=0,w=0;const wa=Date.now()-7*86400000;
   S.tasks.forEach(t=>{const u=urg(t);if(u==='urgent')o++;if(u==='due')d++;});
   w=S.history.filter(h=>h.timestamp>wa).length;
@@ -620,10 +653,24 @@ function startSess(){
   const fp=t=>(floor==='All'&&t.floor==='Upstairs')?1:0;
   const up=t=>{const u=urg(t);return u==='urgent'?0:u==='due'?1:2;};
   const co=t=>{const i=CAT_ORDER.indexOf(t.category);return i<0?99:i;};
-  pool.sort((a,b)=>{if(a.tier!==b.tier)return a.tier-b.tier;if(fp(a)!==fp(b))return fp(a)-fp(b);if(up(a)!==up(b))return up(a)-up(b);if(co(a)!==co(b))return co(a)-co(b);return daysO(b)-daysO(a);});
+  // Get unique zones in a consistent order (downstairs first)
+  const zoneOrder = [...new Set(S.tasks.filter(t=>t.floor==='Downstairs').map(t=>t.zone)),
+                     ...new Set(S.tasks.filter(t=>t.floor==='Upstairs').map(t=>t.zone))];
+  const zo = t => { const i=zoneOrder.indexOf(t.zone); return i<0?99:i; };
+  const roomCatOrder = ['Dusting','Wiping','Scrubbing','Vacuuming','Mopping','Arranging','Deep Clean','Polishing'];
+  const rco = t => { const i=roomCatOrder.indexOf(t.category); return i<0?99:i; };
+  pool.sort((a,b)=>{
+    if(a.tier!==b.tier)return a.tier-b.tier;
+    if(fp(a)!==fp(b))return fp(a)-fp(b);
+    if(up(a)!==up(b))return up(a)-up(b);
+    if(zo(a)!==zo(b))return zo(a)-zo(b);   // room first
+    if(rco(a)!==rco(b))return rco(a)-rco(b); // then category within room
+    return daysO(b)-daysO(a);
+  });
   let total=0;const sel=[];
   for(const t of pool){const avg=(t.minTime+t.maxTime)/2;if(total+avg<=limit){sel.push(t);total+=avg;}}
   S.sess={tasks:sel,limit,filt:'All',done:[],times:{},timers:{}};
+  saveSess();
   renderSess();go('s-session');
 }
 
@@ -668,8 +715,24 @@ function renderSess(){
     const tt=vis.filter(t=>t.tier===tier&&!done.includes(t.id));
     if(!tt.length)return;
     html+=`<div class="slbl2">${{1:'🟢 Tier 1 — Must Do First',2:'🟡 Tier 2 — When Time Allows',3:'⚪ Tier 3 — Deep Cleans'}[tier]}</div>`;
-    const cats=[...new Set(tt.map(t=>t.category))].sort((a,b)=>{const ai=CAT_ORDER.indexOf(a),bi=CAT_ORDER.indexOf(b);return(ai<0?99:ai)-(bi<0?99:bi);});
-    cats.forEach(cat=>{html+=`<div class="catlbl">── ${cat}</div>`;html+=tt.filter(t=>t.category===cat).map(t=>tCard(t,false,timers[t.id])).join('');});
+    // Group by zone first, then category within zone
+    const zoneOrder2=['Living room','Living Room','Kid Living Room','Dining Room','Kitchen','Foyer','Downstairs Washroom','Upstairs Foyer','Master Bedroom','Master Ensuite','Kid Bedroom',"Reese's Office",'Washroom 1','Washroom 2'];
+    const roomCatOrder2=['Dusting','Wiping','Scrubbing','Vacuuming','Mopping','Arranging','Deep Clean','Polishing'];
+    const zones=[...new Set(tt.map(t=>t.zone))].sort((a,b)=>{
+      const ai=zoneOrder2.indexOf(a),bi=zoneOrder2.indexOf(b);
+      return(ai<0?99:ai)-(bi<0?99:bi);
+    });
+    zones.forEach(zone=>{
+      const zoneTasks=tt.filter(t=>t.zone===zone);
+      html+=`<div class="slbl2" style="font-size:12px;color:var(--g);margin-top:12px;background:var(--gp);padding:6px 10px;border-radius:8px">📍 ${zone}</div>`;
+      const cats=[...new Set(zoneTasks.map(t=>t.category))].sort((a,b)=>{
+        const ai=roomCatOrder2.indexOf(a),bi=roomCatOrder2.indexOf(b);return(ai<0?99:ai)-(bi<0?99:bi);
+      });
+      cats.forEach(cat=>{
+        if(cats.length>1)html+=`<div class="catlbl">── ${cat}</div>`;
+        html+=zoneTasks.filter(t=>t.category===cat).map(t=>tCard(t,false,timers[t.id])).join('');
+      });
+    });
   });
   const dl=vis.filter(t=>done.includes(t.id));
   if(dl.length){html+='<div class="slbl2">✅ Completed</div>';html+=dl.map(t=>tCard(t,true)).join('');}
@@ -714,8 +777,13 @@ async function confirmDone(){
   await pushE(entry);
 }
 
-function leaveSess(){if(S.atimer.iv)clearInterval(S.atimer.iv);go('s-home');}
+function leaveSess(){
+  if(S.atimer.iv)clearInterval(S.atimer.iv);
+  saveSess(); // keep session alive
+  go('s-home');
+}
 function finishSess(){
+  try{sessionStorage.removeItem('cleansess');}catch(e){}
   if(S.atimer.iv)clearInterval(S.atimer.iv);
   const done=S.sess.done.length,skip=S.sess.tasks.length-done,time=Object.values(S.sess.times).reduce((a,b)=>a+b,0);
   document.getElementById('sd').textContent=done;document.getElementById('sm').textContent=time;document.getElementById('sk').textContent=skip;
@@ -755,7 +823,10 @@ function filterManage(zone,el){
           <span class="tag zone">${t.frequency}</span>
         </div>
       </div>
+      <div style="display:flex;gap:6px;flex-shrink:0">
       <button class="tedit" onclick="openEditTask('${t.id}')">✏️</button>
+      <button class="tedit" style="color:var(--or)" onclick="deleteTask('${t.id}','${t.description.trim().replace(/'/g,\'\').substring(0,30)}')">🗑</button>
+    </div>
     </div>`).join('');
 }
 
@@ -777,6 +848,7 @@ function openEditTask(id){
   S.editingTaskId = task.id;
   document.getElementById('et-desc').value = task.description.trim();
   document.getElementById('et-cat').value = task.category;
+  populateZoneDropdown('et-zone', task.zone);
   document.getElementById('et-freq').value = task.frequency;
   document.getElementById('et-min').value = task.minTime;
   document.getElementById('et-max').value = task.maxTime;
@@ -792,6 +864,7 @@ async function saveEditTask(){
     id,
     description:document.getElementById('et-desc').value.trim(),
     category:document.getElementById('et-cat').value,
+    zone:document.getElementById('et-zone').value,
     minTime:parseInt(document.getElementById('et-min').value),
     maxTime:parseInt(document.getElementById('et-max').value),
     frequency:document.getElementById('et-freq').value,
@@ -1029,8 +1102,207 @@ function showToast(msg, isError=false){
   setTimeout(()=>t.classList.remove('show'),3000);
 }
 
+
+// ── ZONE DROPDOWN HELPER ──────────────────────────────────────────
+function populateZoneDropdown(selectId, selectedValue) {
+  var sel = document.getElementById(selectId);
+  if(!sel) return;
+  // Get unique zones from loaded tasks, sorted by floor
+  var downZones = [...new Set(S.tasks.filter(t=>t.floor==='Downstairs').map(t=>t.zone))].sort();
+  var upZones = [...new Set(S.tasks.filter(t=>t.floor==='Upstairs').map(t=>t.zone))].sort();
+  sel.innerHTML = '';
+  if(downZones.length) {
+    var dg = document.createElement('optgroup'); dg.label='Downstairs';
+    downZones.forEach(function(z){ var o=document.createElement('option');o.value=z;o.textContent=z;dg.appendChild(o); });
+    sel.appendChild(dg);
+  }
+  if(upZones.length) {
+    var ug = document.createElement('optgroup'); ug.label='Upstairs';
+    upZones.forEach(function(z){ var o=document.createElement('option');o.value=z;o.textContent=z;ug.appendChild(o); });
+    sel.appendChild(ug);
+  }
+  if(selectedValue) sel.value = selectedValue;
+}
+
+// Populate zone dropdowns when tasks load
+var origLoadTasks = loadTasks;
+
+// ── SESSION PERSISTENCE ───────────────────────────────────────────
+function saveSess(){
+  try{
+    var toSave = {
+      tasks: S.sess.tasks,
+      limit: S.sess.limit,
+      filt: S.sess.filt,
+      done: S.sess.done,
+      times: S.sess.times
+    };
+    sessionStorage.setItem('cleansess', JSON.stringify(toSave));
+  }catch(e){}
+}
+
+function loadSess(){
+  try{
+    var d = sessionStorage.getItem('cleansess');
+    if(d){
+      var p = JSON.parse(d);
+      if(p.tasks && p.tasks.length){
+        S.sess = {tasks:p.tasks, limit:p.limit||0, filt:p.filt||'All', done:p.done||[], times:p.times||{}, timers:{}};
+        return true;
+      }
+    }
+  }catch(e){}
+  return false;
+}
+
+function checkResumeBanner(){
+  var banner = document.getElementById('resume-banner');
+  var sub = document.getElementById('resume-sub');
+  if(!banner) return;
+  if(S.sess.tasks && S.sess.tasks.length && S.sess.done.length < S.sess.tasks.length){
+    banner.style.display='block';
+    var remaining = S.sess.tasks.length - S.sess.done.length;
+    sub.textContent = remaining + ' tasks remaining · ' + S.sess.limit + ' min session';
+  } else {
+    banner.style.display='none';
+  }
+}
+
+function resumeSess(){
+  renderSess();
+  go('s-session');
+}
+
+// ── DELETE TASK ───────────────────────────────────────────────────
+async function deleteTask(id, descPreview){
+  if(!confirm('Delete "' + descPreview + '..."?\n\nThis will also remove all history for this task.')) return;
+  var taskId = String(id);
+  // Remove from local tasks
+  S.tasks = S.tasks.filter(function(t){ return String(t.id) !== taskId; });
+  // Remove from local history
+  S.history = S.history.filter(function(h){ return String(h.taskId) !== taskId; });
+  renderManage();
+  showToast('🗑 Task deleted');
+  // Push to Sheets
+  try{
+    await fetch(API, {method:'POST', body:JSON.stringify({action:'deleteTask', id:id}), headers:{'Content-Type':'text/plain;charset=utf-8'}, redirect:'follow'});
+  }catch(e){ console.warn('deleteTask push failed:', e); }
+}
+
+// ── USER MANAGEMENT ───────────────────────────────────────────────
+var renamingUserId = null;
+
+function renderUsersManage(){
+  var el = document.getElementById('users-manage-list');
+  if(!el) return;
+  if(!S.users.length){ el.innerHTML='<div class="empty"><div class="ico">👤</div><p>No users</p></div>'; return; }
+  el.innerHTML = S.users.map(function(u){
+    return '<div style="background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:10px;box-shadow:var(--sh);display:flex;align-items:center;gap:12px">'
+      + '<div style="width:40px;height:40px;border-radius:50%;background:'+u.color+';display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0">'+u.name[0].toUpperCase()+'</div>'
+      + '<div style="flex:1"><div style="font-size:16px;font-weight:700">'+u.name+'</div>'
+      + '<div style="font-size:12px;color:var(--ts)">'+lastStr(u.id)+'</div></div>'
+      + '<button onclick="openRename(''+u.id+'')" style="background:var(--grl);border:none;border-radius:8px;padding:8px 12px;font-size:13px;font-weight:700;cursor:pointer;margin-right:6px">✏️ Rename</button>'
+      + '<button onclick="deleteUser(''+u.id+'',''+u.name+'')" style="background:var(--op);border:none;border-radius:8px;padding:8px 12px;font-size:13px;font-weight:700;cursor:pointer;color:var(--or)">🗑</button>'
+      + '</div>';
+  }).join('');
+}
+
+function openRename(uid){
+  renamingUserId = uid;
+  var user = S.users.find(function(u){ return u.id===uid; });
+  if(!user) return;
+  document.getElementById('rename-input').value = user.name;
+  // Build colour picker
+  var cp = document.getElementById('rename-copts');
+  cp.innerHTML='';
+  ['#2d6a4f','#1d3557','#e76f51','#9b5de5','#0077b6','#d62828','#f4a261','#2ec4b6'].forEach(function(c){
+    var d=document.createElement('div');
+    d.className='copt'+(c===user.color?' on':'');
+    d.style.background=c;
+    d.onclick=function(){ document.querySelectorAll('#rename-copts .copt').forEach(function(x){x.classList.remove('on');}); d.classList.add('on'); };
+    cp.appendChild(d);
+  });
+  document.getElementById('modal-rename').classList.add('on');
+}
+
+async function saveRename(){
+  var name = document.getElementById('rename-input').value.trim();
+  if(!name){ alert('Please enter a name'); return; }
+  var color = document.querySelector('#rename-copts .copt.on');
+  var colorVal = color ? color.style.background : '#2d6a4f';
+  var user = S.users.find(function(u){ return u.id===renamingUserId; });
+  if(!user) return;
+  user.name = name;
+  user.color = colorVal;
+  save();
+  closeModal('modal-rename');
+  renderUsersManage();
+  showToast('✓ Name updated');
+  await pushU(user);
+}
+
+async function deleteUser(uid, uname){
+  if(!confirm('Delete user "'+uname+'"?\n\nThis will remove all their history and time insights.')) return;
+  S.users = S.users.filter(function(u){ return u.id!==uid; });
+  S.history = S.history.filter(function(h){ return h.userId!==uid; });
+  if(S.currentUser && S.currentUser.id===uid) S.currentUser=null;
+  save();
+  renderUsersManage();
+  showToast('🗑 User deleted');
+  try{
+    await fetch(API,{method:'POST',body:JSON.stringify({action:'deleteUser',id:uid}),headers:{'Content-Type':'text/plain;charset=utf-8'},redirect:'follow'});
+  }catch(e){ console.warn('deleteUser push failed:', e); }
+}
+
+// ── ADD TASK TO SESSION ───────────────────────────────────────────
+function openAddToSession(){
+  var sessionIds = new Set(S.sess.tasks.map(function(t){ return t.id; }));
+  var available = S.tasks.filter(function(t){ return !sessionIds.has(t.id); });
+  // Build zone filters
+  var zones = ['All',...new Set(available.map(function(t){ return t.zone; }))];
+  document.getElementById('add-sess-filters').innerHTML = zones.map(function(z,i){
+    return '<div class="fchp '+(i===0?'on':'')+'" onclick="filterAddSess(''+z+'',this)">'+z+'</div>';
+  }).join('');
+  filterAddSess('All');
+  document.getElementById('modal-add-sess').classList.add('on');
+}
+
+function filterAddSess(zone, el){
+  if(el){ document.querySelectorAll('#add-sess-filters .fchp').forEach(function(c){c.classList.remove('on');}); el.classList.add('on'); }
+  var sessionIds = new Set(S.sess.tasks.map(function(t){ return t.id; }));
+  var available = S.tasks.filter(function(t){
+    if(sessionIds.has(t.id)) return false;
+    if(zone==='All') return true;
+    return t.zone===zone;
+  });
+  var el2 = document.getElementById('add-sess-list');
+  if(!available.length){ el2.innerHTML='<div class="empty"><div class="ico">✨</div><p>All tasks in this zone are already in session</p></div>'; return; }
+  el2.innerHTML = available.map(function(t){
+    var u=urg(t);
+    var tc=['t1','t2','t3'][t.tier-1];
+    var utag=u==='urgent'?'<span class="tag ovd">⚠ Overdue</span>':u==='due'?'<span class="tag due">Due soon</span>':'';
+    return '<div class="swap-item" onclick="addTaskToSession('+t.id+')">'
+      +'<div class="swap-item-desc">'+t.description.trim()+'</div>'
+      +'<div class="swap-item-meta"><span class="tag '+tc+'">'+['T1','T2','T3'][t.tier-1]+'</span>'
+      +'<span class="tag cat">'+t.category+'</span><span class="tag zone">'+t.zone+'</span>'+utag
+      +'<span class="tag zone">Est. '+t.minTime+'–'+t.maxTime+'m</span></div>'
+      +'</div>';
+  }).join('');
+}
+
+function addTaskToSession(id){
+  var task = S.tasks.find(function(t){ return t.id===id || parseInt(t.id)===parseInt(id); });
+  if(!task) return;
+  S.sess.tasks.push(task);
+  saveSess();
+  closeModal('modal-add-sess');
+  renderSess();
+  showToast('✓ '+task.description.trim().substring(0,30)+'... added to session');
+}
+
 // ── INIT ───────────────────────────────────────────────────────────
 loadL();
+loadSess(); // restore any active session
 // Load users from Sheets on startup
 renderUsers();
 // Load tasks if user already picked
@@ -1073,5 +1345,16 @@ if(S.currentUser){ loadTasks(); syncH(); }
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- ADD TO SESSION MODAL -->
+<div class="moverlay" id="modal-add-sess">
+  <div class="modal" style="max-height:85vh;display:flex;flex-direction:column;padding-bottom:20px">
+    <div class="mhand"></div>
+    <div style="font-size:16px;font-weight:700;margin-bottom:14px">Add Task to Session</div>
+    <div class="fbar" style="margin-bottom:12px" id="add-sess-filters"></div>
+    <div id="add-sess-list" style="overflow-y:auto;flex:1"></div>
+    <button class="mbtn no" onclick="closeModal('modal-add-sess')" style="margin-top:12px;padding:14px;border-radius:12px;font-size:15px;font-weight:700;border:none;cursor:pointer;background:var(--grl);color:var(--tx)">Cancel</button>
+  </div>
+</div>
 </body>
 </html>
